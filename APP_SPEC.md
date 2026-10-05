@@ -248,7 +248,7 @@ Image binary data must not be copied into every Undo history snapshot.
 - Filename is editable with the `.html` extension shown separately. Repeated `.html` suffixes are normalized to one at download; unsafe characters are replaced and an empty base uses a valid app default.
 - Keep a deliberately edited filename across Preview, Save, closing, and reopening Export for the same guide in the current editing session. Until edited, the suggestion follows the guide title. Starting a new guide/template or confirming an HTML import resets the name; cancelling replacement does not.
 - Generate Preview and Save from the current document, even if it changed after the Export dialog opened.
-- Preview opens the exact generated viewer content before download.
+- Preview opens the exact generated viewer content before download in a no-opener tab. A null window reference is not treated as proof of failure; a neutral pop-up hint explains what to check if no tab appears.
 - The downloaded file must be self-contained: CSS, JavaScript, app icon, referenced images, and editable source data are embedded.
 - Add `<meta name="interactive-guide-maker" content="1">` as the export marker.
 - Embed editable source data in an inert `<script type="application/json" id="interactive-guide-source" data-encoding="base64">` element.

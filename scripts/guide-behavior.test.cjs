@@ -152,6 +152,14 @@ for (const language of ['ja', 'en']) {
       assert.ok(app.run('state.document.blocks.length') > 0);
     }
   });
+  test(`${language}: noopener null return is not reported as a failed preview`, async () => {
+    const app = await setup(language); openExport(app); editFilename(app); const before = snapshot(app), calls = [];
+    app.window.open = (...args) => { calls.push(args); return null; };
+    app.el('previewExportButton').click();
+    assert.equal(calls.length, 1); assert.equal(calls[0][1], '_blank'); assert.equal(calls[0][2], 'noopener');
+    assert.equal(app.el('appToastMessage').textContent, app.run("t('exportPreviewHint')"));
+    assert.equal(snapshot(app), before); assert.equal(app.el('exportFilenameBase').value, 'qa-guide-edited');
+  });
   test(`${language}: failed generation cannot download or preview a previous snapshot`, async () => {
     const app = await setup(language); openExport(app); editFilename(app); app.el('previewExportButton').click();
     const previewCount = app.previews.length, downloadCount = app.downloads.length;

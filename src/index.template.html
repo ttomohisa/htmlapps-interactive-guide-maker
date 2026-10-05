@@ -1443,7 +1443,7 @@
           moveUp: '上へ移動', moveDown: '下へ移動', duplicate: '複製', delete: '削除', drag: 'ドラッグして並べ替え',
           undo: '元に戻す', redo: 'やり直す', deleted: 'ブロックを削除しました', duplicated: 'ブロックを複製しました',
           saved: '端末内に保存済み', saving: '保存中…', saveError: '端末内に保存できませんでした',
-          exportHtml: 'HTMLを書き出す', exportDialogTitle: 'HTMLを書き出す', exportBlocks: 'ブロック', exportImages: '画像', exportSize: 'ファイルサイズ', exportFilename: 'ファイル名', exportNote: '画像・CSS・JavaScriptと再編集用データも1ファイルに含まれます。閲覧時に外部通信は行いません。', previewHtml: 'プレビュー', downloadHtml: 'HTMLを保存', exportPrepared: 'HTMLを準備しました', exportDone: 'HTMLを保存しました', exportPreviewBlocked: 'プレビューを開けませんでした。ブラウザーのポップアップ設定を確認してください。', exportFailed: 'HTMLを作成できませんでした', exportFilenameRequired: 'ファイル名を入力してください', exportLargeWarning: '出力HTMLが大きくなっています（{size}）。メール添付やスマートフォンでの受け渡しには大きすぎる場合があります。', exportCompleteTitle: 'HTMLを作成しました', exportCompleteDetail: '{filename} · {size}',
+          exportHtml: 'HTMLを書き出す', exportDialogTitle: 'HTMLを書き出す', exportBlocks: 'ブロック', exportImages: '画像', exportSize: 'ファイルサイズ', exportFilename: 'ファイル名', exportNote: '画像・CSS・JavaScriptと再編集用データも1ファイルに含まれます。閲覧時に外部通信は行いません。', previewHtml: 'プレビュー', downloadHtml: 'HTMLを保存', exportPrepared: 'HTMLを準備しました', exportDone: 'HTMLを保存しました', exportPreviewHint: '別タブでプレビューを確認してください。開かない場合は、ブラウザーのポップアップ設定を確認してください。', exportFailed: 'HTMLを作成できませんでした', exportFilenameRequired: 'ファイル名を入力してください', exportLargeWarning: '出力HTMLが大きくなっています（{size}）。メール添付やスマートフォンでの受け渡しには大きすぎる場合があります。', exportCompleteTitle: 'HTMLを作成しました', exportCompleteDetail: '{filename} · {size}',
           importGuideDone: 'HTMLから編集を再開しました', importGuideFailed: 'HTMLを読み込めませんでした', importGuideNotCompatible: 'このHTMLはInteractive Guide Makerで編集できません。Interactive Guide Makerで書き出したHTMLを選択してください。', importGuideInvalid: '編集データを読み込めませんでした。ファイルが破損している可能性があります。', importGuideNewer: 'このHTMLは新しい形式で作成されているため、このバージョンでは編集できません。', importGuideConfirmTitle: 'このHTMLを開きますか？', importGuideConfirmMessage: '現在編集中の手順書を、選択したHTMLの内容に置き換えます。', importGuideConfirmAction: '開いて編集',
           viewerSearch: '手順書を検索', viewerSearchPlaceholder: 'キーワードを入力', viewerSearchResults: '{count}件', viewerNoResults: '該当する内容がありません', viewerContents: '目次', viewerPrint: '印刷', viewerTheme: '表示テーマ', viewerThemeAuto: '自動', viewerThemeLight: 'ライト', viewerThemeDark: 'ダーク', viewerChecklistNote: 'チェック状態はこの閲覧中だけ保持されます。', viewerOpenImage: '画像を拡大', viewerClose: '閉じる', viewerCopy: 'コピー', viewerCopied: 'コピーしました', viewerGeneratedBy: 'Interactive Guide Makerで作成',
           blockCountOne: '1 ブロック', blockCountMany: '{count} ブロック', untitled: '無題の手順書', emptyParagraph: '空の文章', emptyHeading: '空の見出し', emptyStep: '空の手順',
@@ -1456,7 +1456,7 @@
           helpPrivacyTitle: 'プライバシー', helpPrivacyBody: 'タイトル・本文・読み込んだ画像はブラウザー内で処理され、このアプリから外部サーバーへ送信されません。実行時の外部通信も行いません。',
           helpNotesTitle: '注意事項', helpNoteStorage: 'ブラウザーのサイトデータを削除すると、自動保存した下書きも消える場合があります。',
           helpNoteShortcuts: 'ダイアログを開いている間、元に戻す / やり直すは手順書に適用されません。ファイル名はブラウザー標準の操作で編集できます。Ctrl/Cmd+Sもダイアログを開き直しません。',
-          helpNoteExport: '書き出したHTMLには再編集用データも含まれます。「HTMLを開く」から続きの編集を再開できます。チェック状態は閲覧中のみ保持されます。',
+          helpNoteExport: 'プレビューは別タブで開きます。表示されない場合はポップアップ設定を確認してください。書き出したHTMLには再編集用データも含まれます。「HTMLを開く」から続きの編集を再開できます。チェック状態は閲覧中のみ保持されます。',
           helpNoteDrag: 'ドラッグ操作が使いにくい場合は、各ブロックの上へ / 下へボタンでも同じ並べ替えができます。',
           helpOffline: 'このアプリ本体は単一HTMLとして生成され、ローカルで直接開いて利用できます。', footer: '完全ローカル処理'
         },
@@ -1483,7 +1483,7 @@
           moveUp: 'Move up', moveDown: 'Move down', duplicate: 'Duplicate', delete: 'Delete', drag: 'Drag to reorder',
           undo: 'Undo', redo: 'Redo', deleted: 'Block deleted', duplicated: 'Block duplicated',
           saved: 'Saved on this device', saving: 'Saving…', saveError: 'Could not save on this device',
-          exportHtml: 'Export HTML', exportDialogTitle: 'Export HTML', exportBlocks: 'Blocks', exportImages: 'Images', exportSize: 'File size', exportFilename: 'File name', exportNote: 'Images, CSS, JavaScript, and editable source data are included in one file. The viewer makes no external network requests.', previewHtml: 'Preview', downloadHtml: 'Save HTML', exportPrepared: 'HTML is ready', exportDone: 'HTML saved', exportPreviewBlocked: 'Could not open the preview. Check your browser pop-up settings.', exportFailed: 'Could not create the HTML file', exportFilenameRequired: 'Enter a file name', exportLargeWarning: 'This HTML is getting large ({size}). It may be too large for email attachments or convenient mobile sharing.', exportCompleteTitle: 'HTML created', exportCompleteDetail: '{filename} · {size}',
+          exportHtml: 'Export HTML', exportDialogTitle: 'Export HTML', exportBlocks: 'Blocks', exportImages: 'Images', exportSize: 'File size', exportFilename: 'File name', exportNote: 'Images, CSS, JavaScript, and editable source data are included in one file. The viewer makes no external network requests.', previewHtml: 'Preview', downloadHtml: 'Save HTML', exportPrepared: 'HTML is ready', exportDone: 'HTML saved', exportPreviewHint: 'Check the new tab for your preview. If none appears, check your browser pop-up settings.', exportFailed: 'Could not create the HTML file', exportFilenameRequired: 'Enter a file name', exportLargeWarning: 'This HTML is getting large ({size}). It may be too large for email attachments or convenient mobile sharing.', exportCompleteTitle: 'HTML created', exportCompleteDetail: '{filename} · {size}',
           importGuideDone: 'Resumed editing from HTML', importGuideFailed: 'Could not read the HTML file', importGuideNotCompatible: 'This HTML cannot be edited by Interactive Guide Maker. Choose an HTML file exported by Interactive Guide Maker.', importGuideInvalid: 'Could not read the editable source data. The file may be damaged.', importGuideNewer: 'This HTML uses a newer guide format and cannot be edited by this version.', importGuideConfirmTitle: 'Open this HTML?', importGuideConfirmMessage: 'This replaces the guide you are currently editing with the contents of the selected HTML file.', importGuideConfirmAction: 'Open and edit',
           viewerSearch: 'Search guide', viewerSearchPlaceholder: 'Enter a keyword', viewerSearchResults: '{count} results', viewerNoResults: 'No matching content', viewerContents: 'Contents', viewerPrint: 'Print', viewerTheme: 'Theme', viewerThemeAuto: 'Auto', viewerThemeLight: 'Light', viewerThemeDark: 'Dark', viewerChecklistNote: 'Checklist state is kept only while this page is open.', viewerOpenImage: 'Enlarge image', viewerClose: 'Close', viewerCopy: 'Copy', viewerCopied: 'Copied', viewerGeneratedBy: 'Created with Interactive Guide Maker',
           blockCountOne: '1 block', blockCountMany: '{count} blocks', untitled: 'Untitled guide', emptyParagraph: 'Empty paragraph', emptyHeading: 'Empty heading', emptyStep: 'Empty step',
@@ -1496,7 +1496,7 @@
           helpPrivacyTitle: 'Privacy', helpPrivacyBody: 'Guide titles, text, and imported images are processed in the browser and are not sent to an external server by this app. It also makes no runtime network connection.',
           helpNotesTitle: 'Notes', helpNoteStorage: 'Clearing browser site data may also remove the locally saved draft.',
           helpNoteShortcuts: 'While a dialog is open, Undo/Redo does not change the guide. Filename editing keeps the browser’s native shortcuts. Ctrl/Cmd+S does not reopen the dialog.',
-          helpNoteExport: 'Exported HTML includes editable source data so you can reopen it with Open HTML later. Checklist state is kept only while that viewer remains open.',
+          helpNoteExport: 'Preview opens in a separate tab; check pop-up settings if no tab appears. Exported HTML includes editable source data so you can reopen it with Open HTML later. Checklist state is kept only while that viewer remains open.',
           helpNoteDrag: 'If drag-and-drop is inconvenient, the Move up / Move down buttons provide the same reorder operation.',
           helpOffline: 'The app itself is generated as one self-contained HTML file and can be opened directly from local storage.', footer: 'Fully local processing'
         }
@@ -2992,7 +2992,8 @@
         if (!prepareExport()) return;
         const url = URL.createObjectURL(new Blob([preparedExportHtml], { type: 'text/html;charset=utf-8' }));
         const preview = window.open(url, '_blank', 'noopener');
-        if (!preview) AppToast.show({ message: t('exportPreviewBlocked'), duration: 4200 });
+        // noopener may return null even when the preview tab opened successfully.
+        if (!preview) AppToast.show({ message: t('exportPreviewHint'), duration: 4200 });
         setTimeout(() => URL.revokeObjectURL(url), 60000);
       }
 
