@@ -1,0 +1,12 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { loadHtml } = require('./guide-harness.cjs');
+const root = path.join(__dirname, '..');
+const readable = fs.readFileSync(path.join(root, 'dist/index.html'));
+assert.ok(readable.equals(fs.readFileSync(path.join(root, 'interactive-guide-maker.html'))), 'root download must be the exact current readable build');
+assert.equal(loadHtml(path.join(root, 'dist/index.self-extract.html')), readable.toString('utf8'), 'self-extract must restore the exact readable build');
+assert.match(readable.toString('utf8'), /connect-src 'none'/);
+assert.ok([...fs.readFileSync(path.join(root, 'dist/index.self-extract.html'))].every(value => value < 128), 'self-extract loader stays ASCII-only');
+console.log('ok - root/readable/self-extract parity and offline release invariants');
