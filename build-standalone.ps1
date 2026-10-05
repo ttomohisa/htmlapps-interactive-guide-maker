@@ -461,3 +461,8 @@ Write-Host "[OK] Fetch/XHR/WebSocket-style runtime network access is blocked by 
 if ($selfExtractEnabled) {
   Write-Host "[OK] Self-extracting HTML: $selfExtractOutputPath" -ForegroundColor Green
 }
+
+# Keep the tracked one-file download synchronized only for the normal release build.
+if (-not $OutputPathWasSpecified) {
+  Copy-Item -LiteralPath $OutputPath -Destination (Join-Path $Root "interactive-guide-maker.html") -Force
+}

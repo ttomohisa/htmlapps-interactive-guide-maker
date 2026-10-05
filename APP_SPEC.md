@@ -245,8 +245,10 @@ Image binary data must not be copied into every Undo history snapshot.
 
 - Provide a primary **Export HTML** action in the editor.
 - Export dialog shows current top-level block count, referenced image count, and generated HTML byte size.
-- Filename is editable with the `.html` extension shown separately.
-- Preview opens the exact generated viewer content before download.
+- Filename is editable with the `.html` extension shown separately. Repeated `.html` suffixes are normalized to one at download; unsafe characters are replaced and an empty base uses a valid app default.
+- Keep a deliberately edited filename across Preview, Save, closing, and reopening Export for the same guide in the current editing session. Until edited, the suggestion follows the guide title. Starting a new guide/template or confirming an HTML import resets the name; cancelling replacement does not.
+- Generate Preview and Save from the current document, even if it changed after the Export dialog opened.
+- Preview opens the exact generated viewer content before download in a no-opener tab. A null window reference is not treated as proof of failure; a neutral pop-up hint explains what to check if no tab appears.
 - The downloaded file must be self-contained: CSS, JavaScript, app icon, referenced images, and editable source data are embedded.
 - Add `<meta name="interactive-guide-maker" content="1">` as the export marker.
 - Embed editable source data in an inert `<script type="application/json" id="interactive-guide-source" data-encoding="base64">` element.
@@ -373,6 +375,8 @@ The JSON is UTF-8 encoded, Base64 encoded, and stored in an inert `application/j
   - Ctrl/Cmd+Z: Undo
   - Ctrl/Cmd+Shift+Z: Redo
   - Ctrl/Cmd+Y: Redo where applicable
+- While any native dialog is open (Export, Help, Settings, confirmation, or mobile block sheet), global guide Undo/Redo shortcuts do not run. Native filename Undo/Redo and Escape cancellation remain available.
+- Ctrl/Cmd+S opens Export only outside dialogs; inside a dialog it prevents browser Save without opening another dialog or resetting the filename/focus.
 - Image replace/remove operations must remain Undo-compatible within the current session.
 
 ## 8. Desktop UX

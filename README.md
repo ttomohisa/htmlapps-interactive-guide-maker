@@ -37,7 +37,8 @@ Interactive Guide Maker is a Browser Kitty tool for building step-by-step guides
 - Viewer and round-trip editor share the same embedded image asset payload to avoid duplicating image data
 - **Export the finished guide as one self-contained HTML file**
 - Pre-export block, image, and file-size summary
-- Editable filename with the `.html` extension kept separate
+- Editable filename with the `.html` extension kept separate; an edited name is kept when reopening Export for the same guide during the editing session
+- Dialog-safe Undo/Redo and Ctrl/Cmd+S; Preview and Save always use current guide content
 - Viewer preview before saving
 - Automatic contents from Headings and Steps
 - Full-text search including content inside Tabs
@@ -135,7 +136,7 @@ No third-party runtime dependency is required in v1.0.0.
 
 ## Build
 
-On Windows 10/11, run:
+With Node.js 24 or later installed, on Windows 10/11 run:
 
 ```bat
 build-standalone.bat
@@ -157,7 +158,9 @@ dist/
 └─ .nojekyll
 ```
 
-Do not edit generated `dist/index*.html` files manually. Edit the source and rebuild.
+The normal build also refreshes `interactive-guide-maker.html` from the readable build. A custom `-OutputPath` leaves that root download unchanged. Repository checks run the same behavior suite against source, readable, self-extracting, and root HTML, then verify release parity.
+
+Do not edit generated `dist/index*.html` or `interactive-guide-maker.html` manually. Edit the source and rebuild.
 
 ## Roadmap
 

@@ -1328,6 +1328,7 @@
       <ul>
         <li data-i18n="helpNoteStorage">ブラウザーのサイトデータを削除すると、自動保存した下書きも消える場合があります。</li>
         <li data-i18n="helpNoteExport">「HTMLを書き出す」から、閲覧機能を含む単一HTMLを保存できます。チェック状態は閲覧中のみ保持されます。</li>
+        <li data-i18n="helpNoteShortcuts">ダイアログを開いている間、元に戻す / やり直すは手順書に適用されません。Ctrl/Cmd+Sもダイアログを開き直しません。</li>
         <li data-i18n="helpNoteDrag">ドラッグ操作が使いにくい場合は、各ブロックの上へ / 下へボタンでも同じ並べ替えができます。</li>
       </ul>
       <p class="dialog-note" data-i18n="helpOffline">このアプリ本体は単一HTMLとして生成され、ローカルで直接開いて利用できます。</p>
@@ -1340,7 +1341,7 @@
       'use strict';
 
       const APP_CONFIG = {"$schema":"./schemas/app-config.schema.json","name":"Interactive Guide Maker","nameJa":"インタラクティブ手順書","slug":"interactive-guide-maker","version":"1.0.0","description":"Create and refine interactive guides with icon-organized block insertion, position-aware image drops, standalone HTML export, and round-trip editing.","descriptionJa":"アイコン付きで整理したブロック追加や画像の位置指定ドロップで手順書を編集し、単一HTMLとして書き出し・再編集できる完全ローカルツールです。","defaultLanguage":"auto","repository":{"owner":"ttomohisa","name":"htmlapps-interactive-guide-maker"},"build":{"output":"dist/index.html","blockRuntimeNetwork":true,"selfExtract":{"enabled":true,"output":"dist/index.self-extract.html"},"sizeBudget":{"readableWarningMb":25,"selfExtractWarningMb":12}}};
-      const BUILD_MANIFEST = {"schemaVersion":2,"builder":"single-html-app-template/1.3","generatedAtUtc":"2026-09-21T16:39:34.6088249Z","app":{"name":"Interactive Guide Maker","slug":"interactive-guide-maker","version":"1.0.0"},"dependencies":[]};
+      const BUILD_MANIFEST = {"schemaVersion":2,"builder":"single-html-app-template/1.3","generatedAtUtc":"2026-10-05T07:07:51.9545813Z","app":{"name":"Interactive Guide Maker","slug":"interactive-guide-maker","version":"1.0.0"},"dependencies":[]};
       const assetBundle = {"schemaVersion":2,"dependencies":{}};
       const blobUrls = new Set();
       const assetByteCache = new Map();
@@ -1442,7 +1443,7 @@
           moveUp: '上へ移動', moveDown: '下へ移動', duplicate: '複製', delete: '削除', drag: 'ドラッグして並べ替え',
           undo: '元に戻す', redo: 'やり直す', deleted: 'ブロックを削除しました', duplicated: 'ブロックを複製しました',
           saved: '端末内に保存済み', saving: '保存中…', saveError: '端末内に保存できませんでした',
-          exportHtml: 'HTMLを書き出す', exportDialogTitle: 'HTMLを書き出す', exportBlocks: 'ブロック', exportImages: '画像', exportSize: 'ファイルサイズ', exportFilename: 'ファイル名', exportNote: '画像・CSS・JavaScriptと再編集用データも1ファイルに含まれます。閲覧時に外部通信は行いません。', previewHtml: 'プレビュー', downloadHtml: 'HTMLを保存', exportPrepared: 'HTMLを準備しました', exportDone: 'HTMLを保存しました', exportPreviewBlocked: 'プレビューを開けませんでした。ブラウザーのポップアップ設定を確認してください。', exportFailed: 'HTMLを作成できませんでした', exportFilenameRequired: 'ファイル名を入力してください', exportLargeWarning: '出力HTMLが大きくなっています（{size}）。メール添付やスマートフォンでの受け渡しには大きすぎる場合があります。', exportCompleteTitle: 'HTMLを作成しました', exportCompleteDetail: '{filename} · {size}',
+          exportHtml: 'HTMLを書き出す', exportDialogTitle: 'HTMLを書き出す', exportBlocks: 'ブロック', exportImages: '画像', exportSize: 'ファイルサイズ', exportFilename: 'ファイル名', exportNote: '画像・CSS・JavaScriptと再編集用データも1ファイルに含まれます。閲覧時に外部通信は行いません。', previewHtml: 'プレビュー', downloadHtml: 'HTMLを保存', exportPrepared: 'HTMLを準備しました', exportDone: 'HTMLを保存しました', exportPreviewHint: '別タブでプレビューを確認してください。開かない場合は、ブラウザーのポップアップ設定を確認してください。', exportFailed: 'HTMLを作成できませんでした', exportFilenameRequired: 'ファイル名を入力してください', exportLargeWarning: '出力HTMLが大きくなっています（{size}）。メール添付やスマートフォンでの受け渡しには大きすぎる場合があります。', exportCompleteTitle: 'HTMLを作成しました', exportCompleteDetail: '{filename} · {size}',
           importGuideDone: 'HTMLから編集を再開しました', importGuideFailed: 'HTMLを読み込めませんでした', importGuideNotCompatible: 'このHTMLはInteractive Guide Makerで編集できません。Interactive Guide Makerで書き出したHTMLを選択してください。', importGuideInvalid: '編集データを読み込めませんでした。ファイルが破損している可能性があります。', importGuideNewer: 'このHTMLは新しい形式で作成されているため、このバージョンでは編集できません。', importGuideConfirmTitle: 'このHTMLを開きますか？', importGuideConfirmMessage: '現在編集中の手順書を、選択したHTMLの内容に置き換えます。', importGuideConfirmAction: '開いて編集',
           viewerSearch: '手順書を検索', viewerSearchPlaceholder: 'キーワードを入力', viewerSearchResults: '{count}件', viewerNoResults: '該当する内容がありません', viewerContents: '目次', viewerPrint: '印刷', viewerTheme: '表示テーマ', viewerThemeAuto: '自動', viewerThemeLight: 'ライト', viewerThemeDark: 'ダーク', viewerChecklistNote: 'チェック状態はこの閲覧中だけ保持されます。', viewerOpenImage: '画像を拡大', viewerClose: '閉じる', viewerCopy: 'コピー', viewerCopied: 'コピーしました', viewerGeneratedBy: 'Interactive Guide Makerで作成',
           blockCountOne: '1 ブロック', blockCountMany: '{count} ブロック', untitled: '無題の手順書', emptyParagraph: '空の文章', emptyHeading: '空の見出し', emptyStep: '空の手順',
@@ -1451,10 +1452,11 @@
           helpTitle: '使い方と注意事項', close: '閉じる', helpBasicsTitle: '基本操作',
           helpStep1: '空の手順書または用途別テンプレートから始め、文章・画像・手順・折りたたみ・タブ・コードなどのブロックを追加します。',
           helpStep2: 'タブ内には文章・注意・チェックリスト・リンク・コード・区切りを複数配置できます。タブ内タブは作れません。画像はファイル選択・ドラッグ＆ドロップ・貼り付けで追加できます。',
-          helpStep3: '編集内容は端末内へ自動保存されます。元に戻す / やり直すにも対応しています。', helpStep4: '「HTMLを書き出す」で単一HTMLとして保存できます。書き出したHTMLは「HTMLを開く」から再編集できます。',
+          helpStep3: '編集内容は端末内へ自動保存されます。元に戻す / やり直すにも対応しています。', helpStep4: '「HTMLを書き出す」で単一HTMLとして保存できます。編集したファイル名は同じ手順書の編集中は保持され、プレビューと保存には最新の内容が使われます。書き出したHTMLは「HTMLを開く」から再編集できます。',
           helpPrivacyTitle: 'プライバシー', helpPrivacyBody: 'タイトル・本文・読み込んだ画像はブラウザー内で処理され、このアプリから外部サーバーへ送信されません。実行時の外部通信も行いません。',
           helpNotesTitle: '注意事項', helpNoteStorage: 'ブラウザーのサイトデータを削除すると、自動保存した下書きも消える場合があります。',
-          helpNoteExport: '書き出したHTMLには再編集用データも含まれます。「HTMLを開く」から続きの編集を再開できます。チェック状態は閲覧中のみ保持されます。',
+          helpNoteShortcuts: 'ダイアログを開いている間、元に戻す / やり直すは手順書に適用されません。ファイル名はブラウザー標準の操作で編集できます。Ctrl/Cmd+Sもダイアログを開き直しません。',
+          helpNoteExport: 'プレビューは別タブで開きます。表示されない場合はポップアップ設定を確認してください。書き出したHTMLには再編集用データも含まれます。「HTMLを開く」から続きの編集を再開できます。チェック状態は閲覧中のみ保持されます。',
           helpNoteDrag: 'ドラッグ操作が使いにくい場合は、各ブロックの上へ / 下へボタンでも同じ並べ替えができます。',
           helpOffline: 'このアプリ本体は単一HTMLとして生成され、ローカルで直接開いて利用できます。', footer: '完全ローカル処理'
         },
@@ -1481,7 +1483,7 @@
           moveUp: 'Move up', moveDown: 'Move down', duplicate: 'Duplicate', delete: 'Delete', drag: 'Drag to reorder',
           undo: 'Undo', redo: 'Redo', deleted: 'Block deleted', duplicated: 'Block duplicated',
           saved: 'Saved on this device', saving: 'Saving…', saveError: 'Could not save on this device',
-          exportHtml: 'Export HTML', exportDialogTitle: 'Export HTML', exportBlocks: 'Blocks', exportImages: 'Images', exportSize: 'File size', exportFilename: 'File name', exportNote: 'Images, CSS, JavaScript, and editable source data are included in one file. The viewer makes no external network requests.', previewHtml: 'Preview', downloadHtml: 'Save HTML', exportPrepared: 'HTML is ready', exportDone: 'HTML saved', exportPreviewBlocked: 'Could not open the preview. Check your browser pop-up settings.', exportFailed: 'Could not create the HTML file', exportFilenameRequired: 'Enter a file name', exportLargeWarning: 'This HTML is getting large ({size}). It may be too large for email attachments or convenient mobile sharing.', exportCompleteTitle: 'HTML created', exportCompleteDetail: '{filename} · {size}',
+          exportHtml: 'Export HTML', exportDialogTitle: 'Export HTML', exportBlocks: 'Blocks', exportImages: 'Images', exportSize: 'File size', exportFilename: 'File name', exportNote: 'Images, CSS, JavaScript, and editable source data are included in one file. The viewer makes no external network requests.', previewHtml: 'Preview', downloadHtml: 'Save HTML', exportPrepared: 'HTML is ready', exportDone: 'HTML saved', exportPreviewHint: 'Check the new tab for your preview. If none appears, check your browser pop-up settings.', exportFailed: 'Could not create the HTML file', exportFilenameRequired: 'Enter a file name', exportLargeWarning: 'This HTML is getting large ({size}). It may be too large for email attachments or convenient mobile sharing.', exportCompleteTitle: 'HTML created', exportCompleteDetail: '{filename} · {size}',
           importGuideDone: 'Resumed editing from HTML', importGuideFailed: 'Could not read the HTML file', importGuideNotCompatible: 'This HTML cannot be edited by Interactive Guide Maker. Choose an HTML file exported by Interactive Guide Maker.', importGuideInvalid: 'Could not read the editable source data. The file may be damaged.', importGuideNewer: 'This HTML uses a newer guide format and cannot be edited by this version.', importGuideConfirmTitle: 'Open this HTML?', importGuideConfirmMessage: 'This replaces the guide you are currently editing with the contents of the selected HTML file.', importGuideConfirmAction: 'Open and edit',
           viewerSearch: 'Search guide', viewerSearchPlaceholder: 'Enter a keyword', viewerSearchResults: '{count} results', viewerNoResults: 'No matching content', viewerContents: 'Contents', viewerPrint: 'Print', viewerTheme: 'Theme', viewerThemeAuto: 'Auto', viewerThemeLight: 'Light', viewerThemeDark: 'Dark', viewerChecklistNote: 'Checklist state is kept only while this page is open.', viewerOpenImage: 'Enlarge image', viewerClose: 'Close', viewerCopy: 'Copy', viewerCopied: 'Copied', viewerGeneratedBy: 'Created with Interactive Guide Maker',
           blockCountOne: '1 block', blockCountMany: '{count} blocks', untitled: 'Untitled guide', emptyParagraph: 'Empty paragraph', emptyHeading: 'Empty heading', emptyStep: 'Empty step',
@@ -1490,10 +1492,11 @@
           helpTitle: 'How to use & notes', close: 'Close', helpBasicsTitle: 'Basics',
           helpStep1: 'Start blank or from a task template, then add text, images, steps, details, tabs, code, and other guide blocks.',
           helpStep2: 'On desktop, hover between blocks to reveal a + button and insert there. Drag image files over the editor to preview the insertion position before dropping. Tabs cannot be nested.',
-          helpStep3: 'Edits are saved on this device automatically. Undo and Redo are also available.', helpStep4: 'Use Document settings for text size, content width, and theme. Export HTML saves one self-contained file that can be reopened later.',
+          helpStep3: 'Edits are saved on this device automatically. Undo and Redo are also available.', helpStep4: 'Use Document settings for text size, content width, and theme. Export HTML saves one self-contained file that can be reopened later. Your edited filename is kept for this guide during the editing session. Preview and Save use the latest content.',
           helpPrivacyTitle: 'Privacy', helpPrivacyBody: 'Guide titles, text, and imported images are processed in the browser and are not sent to an external server by this app. It also makes no runtime network connection.',
           helpNotesTitle: 'Notes', helpNoteStorage: 'Clearing browser site data may also remove the locally saved draft.',
-          helpNoteExport: 'Exported HTML includes editable source data so you can reopen it with Open HTML later. Checklist state is kept only while that viewer remains open.',
+          helpNoteShortcuts: 'While a dialog is open, Undo/Redo does not change the guide. Filename editing keeps the browser’s native shortcuts. Ctrl/Cmd+S does not reopen the dialog.',
+          helpNoteExport: 'Preview opens in a separate tab; check pop-up settings if no tab appears. Exported HTML includes editable source data so you can reopen it with Open HTML later. Checklist state is kept only while that viewer remains open.',
           helpNoteDrag: 'If drag-and-drop is inconvenient, the Move up / Move down buttons provide the same reorder operation.',
           helpOffline: 'The app itself is generated as one self-contained HTML file and can be opened directly from local storage.', footer: 'Fully local processing'
         }
@@ -2796,7 +2799,7 @@
         }
         clearTimeout(historyTimer); historyTimer = 0; clearTimeout(saveTimer); saveTimer = 0; AppToast.dismiss(); imageAssets.clear();
         state = kind === 'blank' ? createEmptyState() : createTemplateState(kind);
-        selectedBlockId = null; historyPast = [serialize()]; historyFuture = []; preparedExportHtml = '';
+        selectedBlockId = null; historyPast = [serialize()]; historyFuture = []; resetExportState();
         hideStartScreen(); renderAll(); await saveImmediately();
         AppToast.show({ message: t(kind === 'blank' ? 'startedNew' : 'templateStarted'), duration: 2600 });
         $('#documentTitle').focus();
@@ -2844,6 +2847,7 @@
       }
       function sanitizeFileBase(value) {
         let name = String(value || '').trim().replace(/[<>:\"/\\|?*\u0000-\u001f]/g, '-').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/[. ]+$/g, '');
+        name = name.replace(/(?:\.html)+$/i, '').replace(/[. ]+$/g, '');
         if (!name) name = futureExport.outputFilename || 'guide';
         return name.slice(0, 120);
       }
@@ -2933,6 +2937,12 @@
         return `<!doctype html>\n<html lang="${language}"${documentSettings.theme === 'auto' ? '' : ` data-theme="${documentSettings.theme}"`}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#16624f"><meta name="interactive-guide-maker" content="1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'"><title>${escapeHtml(title)}</title><link rel="icon" href="${escapeAttribute(appIcon)}"><style>${viewerCss}</style></head><body><header class="topbar"><div class="topbar-inner"><img class="brand-icon" src="${escapeAttribute(appIcon)}" alt=""><div class="brand-title"><strong>${escapeHtml(title)}</strong><span>${escapeHtml(strings.generated)}</span></div><button class="tool-button" id="themeButton" type="button" data-label="${escapeAttribute(strings.theme)}" data-auto="${escapeAttribute(strings.auto)}" data-light="${escapeAttribute(strings.light)}" data-dark="${escapeAttribute(strings.dark)}">${escapeHtml(strings.theme)}: ${escapeHtml(strings.auto)}</button></div></header><main class="page"><div class="hero"><h1>${escapeHtml(title)}</h1></div><div class="viewer-tools"><div class="search-wrap"><label class="sr-only" for="guideSearch">${escapeHtml(strings.search)}</label><input class="search-input" id="guideSearch" type="search" autocomplete="off" placeholder="${escapeAttribute(strings.searchPlaceholder)}"><div class="search-results" id="searchResults" data-empty="${escapeAttribute(strings.noResults)}" hidden></div></div><div class="tool-row"><button class="tool-button" id="printButton" type="button">${escapeHtml(strings.print)}</button></div></div><div class="layout"><article class="content">${blocksHtml}<p class="footer-note">${escapeHtml(strings.checklist)} · ${escapeHtml(strings.generated)}</p></article>${tocHtml}</div></main><div class="lightbox" id="lightbox" hidden><button class="lightbox-close" type="button" data-lightbox-close>${escapeHtml(strings.close)}</button><img alt=""></div><script type="application/json" id="interactive-guide-source" data-encoding="base64">${sourceBase64}<\/script><script>${viewerScript}<\/script></body></html>`;
       }
       let preparedExportHtml = '';
+      let exportFilenameEdited = false;
+      function resetExportState() {
+        preparedExportHtml = '';
+        exportFilenameEdited = false;
+        $('#exportFilenameBase').value = '';
+      }
       function updateExportSummary(html) {
         const bytes = new Blob([html], { type: 'text/html;charset=utf-8' }).size;
         $('#exportBlockCount').textContent = String(state.document.blocks.length);
@@ -2945,7 +2955,7 @@
         try {
           flushHistory();
           preparedExportHtml = generateStandaloneGuideHtml();
-          $('#exportFilenameBase').value = suggestedFileBase();
+          if (!exportFilenameEdited) $('#exportFilenameBase').value = suggestedFileBase();
           updateExportSummary(preparedExportHtml);
           return true;
         } catch (error) {
@@ -2955,12 +2965,14 @@
         }
       }
       function openExportDialog() {
+        if ($('#exportDialog').open) return;
         if (!prepareExport()) return;
         $('#exportDialog').showModal();
         requestAnimationFrame(() => $('#exportFilenameBase').select());
       }
       function downloadExportHtml() {
-        if (!preparedExportHtml && !prepareExport()) return;
+        // Refresh at the action boundary: pending edits must never export an older snapshot.
+        if (!prepareExport()) return;
         const base = sanitizeFileBase($('#exportFilenameBase').value);
         if (!base) { AppToast.show({ message: t('exportFilenameRequired'), duration: 2800 }); return; }
         const blob = new Blob([preparedExportHtml], { type: 'text/html;charset=utf-8' });
@@ -2977,10 +2989,11 @@
         AppToast.show({ message: t('exportDone'), duration: 2600 });
       }
       function previewExportHtml() {
-        if (!preparedExportHtml && !prepareExport()) return;
+        if (!prepareExport()) return;
         const url = URL.createObjectURL(new Blob([preparedExportHtml], { type: 'text/html;charset=utf-8' }));
         const preview = window.open(url, '_blank', 'noopener');
-        if (!preview) AppToast.show({ message: t('exportPreviewBlocked'), duration: 4200 });
+        // noopener may return null even when the preview tab opened successfully.
+        if (!preview) AppToast.show({ message: t('exportPreviewHint'), duration: 4200 });
         setTimeout(() => URL.revokeObjectURL(url), 60000);
       }
 
@@ -3030,7 +3043,7 @@
         selectedBlockId = null;
         historyPast = [serialize()];
         historyFuture = [];
-        preparedExportHtml = '';
+        resetExportState();
         hideStartScreen();
         renderAll();
         await saveImmediately();
@@ -3076,6 +3089,7 @@
         applyLanguage();
       });
       const exportDialog = $('#exportDialog');
+      $('#exportFilenameBase').addEventListener('input', () => { exportFilenameEdited = true; });
       $('#exportButton').addEventListener('click', openExportDialog);
       $('#closeExportButton').addEventListener('click', () => exportDialog.close());
       $('#exportCancelButton').addEventListener('click', () => exportDialog.close());
@@ -3162,8 +3176,15 @@
         scheduleSave();
       });
       document.addEventListener('keydown', event => {
+        if (event.defaultPrevented || event.isComposing) return;
         const modifier = event.ctrlKey || event.metaKey;
         if (!modifier) return;
+        // Native dialogs own their controls, including the filename's native Undo/Redo.
+        // Suppress browser Save while a dialog is open, without reopening Export or stealing focus.
+        if (document.querySelector('dialog[open]')) {
+          if (event.key.toLowerCase() === 's') event.preventDefault();
+          return;
+        }
         if (event.key.toLowerCase() === 's') { event.preventDefault(); openExportDialog(); return; }
         if (event.key.toLowerCase() === 'z' && event.shiftKey) { event.preventDefault(); redo(); return; }
         if (event.key.toLowerCase() === 'z') { event.preventDefault(); undo(); return; }

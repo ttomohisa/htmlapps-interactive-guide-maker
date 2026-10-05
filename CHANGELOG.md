@@ -2,6 +2,16 @@
 
 All notable changes to Interactive Guide Maker are documented here.
 
+## [Unreleased]
+
+### Fixed
+
+- Keep dialog keyboard shortcuts from undoing/redoing and autosaving changes to the guide behind the dialog; native filename Undo/Redo remains available.
+- Preserve deliberately edited export names during the same editing session, including repeated open/close and Ctrl/Cmd+S; reset names only when a new or imported guide replaces the document.
+- Refresh Preview and Save from current guide content and keep the required `.html` extension singular.
+- Avoid reporting a successful no-opener Preview tab as blocked; show a neutral hint when the browser does not return a window reference.
+- Regenerate the root downloadable HTML in normal builds and verify source/readable/self-extract/root behavior and release parity.
+
 ## [1.0.0] - 2026-09-22
 
 ### Added
