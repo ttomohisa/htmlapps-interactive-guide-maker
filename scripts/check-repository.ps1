@@ -233,6 +233,8 @@ $node = Get-Command node -ErrorAction SilentlyContinue
 if (-not $node) { throw "Node.js 24 or later is required for guide behavior checks." }
 & $node.Source (Join-Path $Root "scripts\guide-behavior.test.cjs")
 if ($LASTEXITCODE -ne 0) { throw "Guide source behavior checks failed." }
+& $node.Source (Join-Path $Root "scripts\guide-viewer.test.cjs")
+if ($LASTEXITCODE -ne 0) { throw "Generated guide source viewer checks failed." }
 
 $buildArguments = @{}
 if ($ForceDownload) { $buildArguments.ForceDownload = $true }
@@ -241,6 +243,8 @@ if ($ForceDownload) { $buildArguments.ForceDownload = $true }
 foreach ($relative in @("dist\index.html", "dist\index.self-extract.html", "interactive-guide-maker.html")) {
   & $node.Source (Join-Path $Root "scripts\guide-behavior.test.cjs") (Join-Path $Root $relative)
   if ($LASTEXITCODE -ne 0) { throw "Guide behavior checks failed: $relative" }
+  & $node.Source (Join-Path $Root "scripts\guide-viewer.test.cjs") (Join-Path $Root $relative)
+  if ($LASTEXITCODE -ne 0) { throw "Generated guide viewer checks failed: $relative" }
 }
 & $node.Source (Join-Path $Root "scripts\guide-release.test.cjs")
 if ($LASTEXITCODE -ne 0) { throw "Guide release parity checks failed." }
