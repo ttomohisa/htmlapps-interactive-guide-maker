@@ -4,7 +4,14 @@ All notable changes to Interactive Guide Maker are documented here.
 
 ## [Unreleased]
 
+### Added
+
+- Add localized Expand all details / Collapse all details controls to generated viewers with at least two disclosures, synchronized with native toggles and search without scrolling or persistence.
+
 ### Fixed
+
+- Open matching closed Details before navigating to search results while preserving unrelated disclosures and nested Tabs navigation.
+- Exercise actual generated-viewer behavior in the canonical source/readable/self-extract/root checks.
 
 - Keep dialog keyboard shortcuts from undoing/redoing and autosaving changes to the guide behind the dialog; native filename Undo/Redo remains available.
 - Preserve deliberately edited export names during the same editing session, including repeated open/close and Ctrl/Cmd+S; reset names only when a new or imported guide replaces the document.

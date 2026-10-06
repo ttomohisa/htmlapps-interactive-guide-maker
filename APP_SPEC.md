@@ -256,9 +256,11 @@ Image binary data must not be copied into every Undo history snapshot.
 - Viewer images are hydrated from the same embedded asset payload used for round-trip editing, avoiding a second full copy of each image in the exported HTML.
 - Viewer runtime must not fetch external assets and must use a restrictive CSP including `connect-src 'none'`.
 - Generate an automatic Contents list from top-level Heading and Step blocks.
-- Full-text search covers visible top-level content and content inside Tabs. Selecting a nested Tab result activates the owning Tab before navigation.
+- Full-text search covers top-level content, including closed Details, and content inside Tabs. Selecting a Details result opens only that matching disclosure before scrolling and highlighting. Selecting a nested Tab result still activates the owning Tab before navigation. Empty or unmatched searches leave content state unchanged.
 - Viewer Checklists are interactive but their checked state remains session-only in v1.0.0.
-- Details uses native disclosure behavior.
+- Details uses native disclosure behavior and starts closed on each viewer load.
+- When the generated viewer contains at least two Details blocks, show a native **Expand all details** / **Collapse all details** button beside Print (Japanese: **すべての詳細を開く** / **すべての詳細を閉じる**). With any closed Details, the action opens all; with all open, it closes all. Derive its label and `aria-expanded` from live disclosure states after bulk actions, individual toggles, and search navigation.
+- Bulk Details actions keep focus on the button and do not scroll, change Tabs/checklists, or write editor state or persistence. Disclosure states are session-only and do not change the schema-1 editable payload or print behavior. This control is shared by Export Preview and downloaded HTML; it is not added to the editor or inline mobile Preview.
 - Tabs are keyboard-focusable buttons / tab panels and preserve the editor-defined 2–5 pane structure.
 - Code blocks provide Copy with Clipboard API and a local fallback suitable for direct-file viewing where possible.
 - Images open in a local lightbox and never require a source URL outside the file.
@@ -467,6 +469,8 @@ Image settings remain contextual inside the selected Image block. Do not add a p
 - Exported HTML includes no external runtime resource and contains `connect-src 'none'`.
 - Viewer Contents, search, Checklist, Details, Tabs, code copy, image lightbox, theme switching, and Print work.
 - Search can locate nested Tab text and navigate to the correct Tab.
+- Body-only and summary search results reveal closed Details before scroll, preserve unrelated disclosures, and work after repeated collapse/search cycles.
+- Zero or one Details block has no bulk control; two or many support localized all-open, all-closed, mixed-state, rapid-repeat and native-toggle synchronization without scrolling or persistence.
 - Editor, Export dialog, and viewer remain usable at 320px width without horizontal scrolling.
 - Exported HTML contains the Interactive Guide Maker marker and versioned editable source payload.
 - Exported HTML can be reopened through **Open HTML**, restoring title, all supported blocks, and referenced images.

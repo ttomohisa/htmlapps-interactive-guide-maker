@@ -43,6 +43,7 @@ Interactive Guide Maker is a Browser Kitty tool for building step-by-step guides
 - Automatic contents from Headings and Steps
 - Full-text search including content inside Tabs
 - Interactive checklists, Details, and Tabs in the exported viewer
+- Search reveals matching closed Details; guides with two or more Details offer Expand all details / Collapse all details in exported HTML and its separate-tab Preview. Disclosure state lasts only while that viewer is open.
 - Code copy with Clipboard API plus a local fallback
 - Image lightbox / zoom
 - Auto / Light / Dark viewer theme switching
