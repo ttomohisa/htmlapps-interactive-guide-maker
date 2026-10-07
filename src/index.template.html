@@ -1079,12 +1079,12 @@
       <div class="brand">
         <div class="brand-mark" aria-hidden="true"><img id="appBrandIcon" src="__APP_ICON_DATA_URI__" alt=""></div>
         <div class="brand-copy">
-          <p class="brand-name"><span id="brandName">Interactive Guide Maker</span><span class="version-badge" id="versionBadge">v1.0.0</span></p>
+          <p class="brand-name"><span id="brandName">Interactive Guide Maker</span><span class="version-badge" id="versionBadge">v1.0.1</span></p>
           <p class="brand-meta" data-i18n="brandMeta">Guide editor · Fully local processing</p>
         </div>
       </div>
       <div class="header-actions">
-        <button class="language-button" id="languageButton" type="button" aria-label="Switch language">EN</button>
+        <button class="language-button" id="languageButton" type="button" aria-label="英語に切り替え" title="英語に切り替え">EN</button>
         <button class="icon-button header-icon-button" id="helpButton" type="button" data-i18n-title="helpTitle" data-i18n-aria-label="helpTitle" title="使い方と注意事項" aria-label="使い方と注意事項">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.35 2.35 0 1 1 3.72 1.9c-.92.67-1.52 1.12-1.52 2.1"/><path d="M12 17h.01"/></svg>
         </button>
@@ -1313,6 +1313,7 @@
     </div>
     <div class="dialog-body">
       <!-- APP:HELP:BEGIN Update this section together with the real application. -->
+      <p data-i18n="helpLanguage">ヘッダーのENで英語、JAで日本語に切り替えられます。</p>
       <h3 data-i18n="helpBasicsTitle">基本操作</h3>
       <ol>
         <li data-i18n="helpStep1">手順書タイトルを入力し、文章・画像・見出し・手順・注意・チェックリスト・リンクなどのブロックを追加します。</li>
@@ -1450,6 +1451,7 @@
           blockCountOne: '1 ブロック', blockCountMany: '{count} ブロック', untitled: '無題の手順書', emptyParagraph: '空の文章', emptyHeading: '空の見出し', emptyStep: '空の手順',
           newConfirmTitle: '新しい手順書を作成しますか？', newConfirmMessage: '現在の手順書を空の状態に置き換えます。自動保存された内容も更新されます。', newConfirmAction: '新しく作る', cancel: 'キャンセル', confirmTitle: '確認', confirmAction: '実行する',
           startedNew: '新しい手順書を開始しました', templateStarted: 'テンプレートから手順書を開始しました',
+          helpLanguage: 'ヘッダーのENで英語、JAで日本語に切り替えられます。',
           helpTitle: '使い方と注意事項', close: '閉じる', helpBasicsTitle: '基本操作',
           helpStep1: '空の手順書または用途別テンプレートから始め、文章・画像・手順・折りたたみ・タブ・コードなどのブロックを追加します。',
           helpStep2: 'タブ内には文章・注意・チェックリスト・リンク・コード・区切りを複数配置できます。タブ内タブは作れません。画像はファイル選択・ドラッグ＆ドロップ・貼り付けで追加できます。',
@@ -1491,6 +1493,7 @@
           blockCountOne: '1 block', blockCountMany: '{count} blocks', untitled: 'Untitled guide', emptyParagraph: 'Empty paragraph', emptyHeading: 'Empty heading', emptyStep: 'Empty step',
           newConfirmTitle: 'Create a new guide?', newConfirmMessage: 'This replaces the current guide with a blank one and updates the locally saved draft.', newConfirmAction: 'Create new', cancel: 'Cancel', confirmTitle: 'Confirm', confirmAction: 'Continue',
           startedNew: 'Started a new guide', templateStarted: 'Started a guide from a template',
+          helpLanguage: 'Use EN in the header to switch to English, or JA to switch to Japanese.',
           helpTitle: 'How to use & notes', close: 'Close', helpBasicsTitle: 'Basics',
           helpStep1: 'Start blank or from a task template, then add text, images, steps, details, tabs, code, and other guide blocks.',
           helpStep2: 'On desktop, hover between blocks to reveal a + button and insert there. Drag image files over the editor to preview the insertion position before dropping. Tabs cannot be nested.',
@@ -3008,8 +3011,9 @@
         document.querySelectorAll('[data-i18n-title]').forEach(element => { element.title = t(element.dataset.i18nTitle); });
         document.querySelectorAll('[data-i18n-aria-label]').forEach(element => { element.setAttribute('aria-label', t(element.dataset.i18nAriaLabel)); });
         document.querySelectorAll('[data-i18n-placeholder]').forEach(element => { element.setAttribute('placeholder', t(element.dataset.i18nPlaceholder)); });
-        $('#languageButton').textContent = language === 'ja' ? 'EN' : '日本語';
+        $('#languageButton').textContent = language === 'ja' ? 'EN' : 'JA';
         $('#languageButton').setAttribute('aria-label', language === 'ja' ? '英語に切り替え' : 'Switch to Japanese');
+        $('#languageButton').title = language === 'ja' ? '英語に切り替え' : 'Switch to Japanese';
         document.title = language === 'ja' ? APP_CONFIG.nameJa : APP_CONFIG.name;
         $('#brandName').textContent = language === 'ja' ? APP_CONFIG.nameJa : APP_CONFIG.name;
         $('#footerName').textContent = language === 'ja' ? APP_CONFIG.nameJa : APP_CONFIG.name;

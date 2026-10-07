@@ -3,7 +3,7 @@
   "name": "Interactive Guide Maker",
   "nameJa": "インタラクティブ手順書",
   "slug": "interactive-guide-maker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create and refine interactive guides with icon-organized block insertion, position-aware image drops, standalone HTML export, and round-trip editing.",
   "descriptionJa": "アイコン付きで整理したブロック追加や画像の位置指定ドロップで手順書を編集し、単一HTMLとして書き出し・再編集できる完全ローカルツールです。",
   "defaultLanguage": "auto",

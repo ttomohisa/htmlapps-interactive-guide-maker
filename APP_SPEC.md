@@ -4,7 +4,7 @@
 
 - **Name:** Interactive Guide Maker
 - **Japanese name:** インタラクティブ手順書
-- **Current version:** v1.0.0
+- **Current version:** v1.0.1
 - **One-sentence purpose:** Build step-by-step guides entirely in the browser, export them as self-contained interactive HTML, and reopen those exported files to continue editing.
 - **Primary users:** People creating operating procedures, setup instructions, inspection guides, handover notes, and troubleshooting guides without writing HTML.
 - **Release artifacts:** `dist/index.html` and `dist/index.self-extract.html`
@@ -401,6 +401,10 @@ Image settings remain contextual inside the selected Image block. Do not add a p
 - Mobile uses the fixed Structure / Edit / Preview bottom navigation introduced in v0.7.0.
 
 ## 10. Accessibility
+
+- The header language button shows the target language: `EN` in Japanese and `JA` in English. Preserve the saved language preference and set matching localized `aria-label` / `title` (`英語に切り替え` / `Switch to Japanese`).
+- Help open and close controls retain localized accessible names and matching tooltips in both languages.
+- The header version is `v` followed by the canonical three-part `app.config.json` version; generated release metadata must match the same version.
 
 - Visible keyboard focus.
 - Proper labels / accessible names.
