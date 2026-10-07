@@ -19,6 +19,14 @@ All notable changes to Interactive Guide Maker are documented here.
 - Avoid reporting a successful no-opener Preview tab as blocked; show a neutral hint when the browser does not return a window reference.
 - Regenerate the root downloadable HTML in normal builds and verify source/readable/self-extract/root behavior and release parity.
 
+## [1.0.1] - 2026-10-07
+
+### Fixed
+
+- Standardize the header language target as EN / JA with matching localized accessible names and tooltips.
+- Keep Help open/close labels and tooltips localized and synchronize the header version with canonical release metadata.
+- Add executable bilingual header regressions across source, readable, self-extracting, and root releases.
+
 ## [1.0.0] - 2026-09-22
 
 ### Added
