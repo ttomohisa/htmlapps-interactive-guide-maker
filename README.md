@@ -39,6 +39,7 @@ Interactive Guide Maker is a Browser Kitty tool for building step-by-step guides
 - Pre-export block, image, and file-size summary
 - Editable filename with the `.html` extension kept separate; an edited name is kept when reopening Export for the same guide during the editing session
 - Dialog-safe Undo/Redo and Ctrl/Cmd+S; Preview and Save always use current guide content
+- Modal dialogs stop background scrolling; on short screens, confirmation buttons and all mobile Add block choices remain reachable by scrolling inside the dialog
 - Viewer preview before saving
 - Automatic contents from Headings and Steps
 - Full-text search including content inside Tabs

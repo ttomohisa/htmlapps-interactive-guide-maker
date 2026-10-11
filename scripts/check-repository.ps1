@@ -237,6 +237,8 @@ if ($LASTEXITCODE -ne 0) { throw "Guide source behavior checks failed." }
 if ($LASTEXITCODE -ne 0) { throw "Generated guide source viewer checks failed." }
 & $node.Source (Join-Path $Root "scripts\guide-header.test.cjs")
 if ($LASTEXITCODE -ne 0) { throw "Guide source header checks failed." }
+& $node.Source (Join-Path $Root "scripts\guide-dialog-layout.test.cjs")
+if ($LASTEXITCODE -ne 0) { throw "Guide source dialog layout checks failed." }
 
 $buildArguments = @{}
 if ($ForceDownload) { $buildArguments.ForceDownload = $true }
@@ -249,6 +251,8 @@ foreach ($relative in @("dist\index.html", "dist\index.self-extract.html", "inte
   if ($LASTEXITCODE -ne 0) { throw "Generated guide viewer checks failed: $relative" }
   & $node.Source (Join-Path $Root "scripts\guide-header.test.cjs") (Join-Path $Root $relative)
   if ($LASTEXITCODE -ne 0) { throw "Guide header checks failed: $relative" }
+  & $node.Source (Join-Path $Root "scripts\guide-dialog-layout.test.cjs") (Join-Path $Root $relative)
+  if ($LASTEXITCODE -ne 0) { throw "Guide dialog layout checks failed: $relative" }
 }
 & $node.Source (Join-Path $Root "scripts\guide-release.test.cjs")
 if ($LASTEXITCODE -ne 0) { throw "Guide release parity checks failed." }
