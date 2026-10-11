@@ -72,14 +72,8 @@ test('working Help, Settings and Export geometry and existing shield artwork are
   assert.ok(html.includes('m9 12 2 2 4-5'));
 });
 
-test('bilingual Help describes the bounded dialog body and background lock', async () => {
-  assert.match(html, /APP:HELP:BEGIN[\s\S]*data-i18n="helpNoteDialogs"[\s\S]*APP:HELP:END/);
-  for (const language of ['ja', 'en']) {
-    const app = createApp(filename, { language }); await app.settle();
-    const text = app.run('t("helpNoteDialogs")');
-    assert.notEqual(text, 'helpNoteDialogs');
-    assert.match(text, language === 'ja' ? /背景.*スクロール/ : /background.*scroll/i);
-  }
+test('Help excludes layout audit commentary', () => {
+  assert.equal(html.includes('helpNoteDialogs'), false);
 });
 
 test('canonical checker runs dialog regressions on source and every generated variant', () => {
