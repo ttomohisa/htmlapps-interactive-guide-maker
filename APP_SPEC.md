@@ -4,7 +4,7 @@
 
 - **Name:** Interactive Guide Maker
 - **Japanese name:** インタラクティブ手順書
-- **Current version:** v1.0.1
+- **Current version:** v1.0.2
 - **One-sentence purpose:** Build step-by-step guides entirely in the browser, export them as self-contained interactive HTML, and reopen those exported files to continue editing.
 - **Primary users:** People creating operating procedures, setup instructions, inspection guides, handover notes, and troubleshooting guides without writing HTML.
 - **Release artifacts:** `dist/index.html` and `dist/index.self-extract.html`
@@ -414,6 +414,15 @@ Image settings remain contextual inside the selected Image block. Do not add a p
 - Imported image preview uses the current alt text.
 - Help and confirm dialogs close with Escape and restore focus where appropriate.
 - Respect `prefers-reduced-motion`.
+
+### Modal viewport and scroll behavior
+
+- While a native modal dialog is open, lock both document-root and body scrolling using native modal state. Closing the last modal with its existing controls, Escape, or backdrop immediately releases the lock; a nonmodal dialog must not acquire it.
+- Preserve the existing Help, Settings, and Export shell/body geometry and native dismissal behavior.
+- Bound confirmation dialogs to the dynamic viewport with safe-area clearance. Keep the header/close control outside the shrinking body; the message and both action buttons share one independently scrollable body.
+- Bound the mobile Add block sheet to the dynamic viewport, reserve its header, and allow its body to shrink within the remaining space. Retain all eleven choices and bottom safe-area padding.
+- At 393 × 252 CSS px in Japanese and English, confirmation Cancel/OK and the final Divider choice must be reachable by scrolling the dialog body while the close control stays reachable. Repeat at 320px width, desktop short heights and zoomed layouts.
+- Opening/dismissing these dialogs must preserve guide content, history, settings, export filename, and local persistence. Existing confirmation cancellation/focus-return semantics remain unchanged.
 
 ## 11. Privacy
 

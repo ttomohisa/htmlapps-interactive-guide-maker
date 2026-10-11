@@ -2,6 +2,15 @@
 
 All notable changes to Interactive Guide Maker are documented here.
 
+## [1.0.2] - 2026-10-11
+
+### Fixed
+
+- Lock document and body scrolling while a native modal dialog is open, releasing the lock through existing dismissal routes.
+- Bound confirmation dialogs to the viewport and scroll their message/actions below a stable header, including short smartphone screens.
+- Allocate mobile Add block sheet height between its header and scrollable body so the final block choice remains reachable.
+- Preserve existing Help, Settings, Export, guide state, export naming, and persistence behavior; add source and decoded-release dialog regressions with bilingual Help guidance.
+
 ## [Unreleased]
 
 ### Added

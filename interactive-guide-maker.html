@@ -762,6 +762,8 @@
       font-weight: 750;
       cursor: pointer;
     }
+    /* Native modal state owns the page lock, including Escape and backdrop dismissal. */
+    html:has(dialog:modal), body:has(dialog:modal) { overflow: hidden; overscroll-behavior: none; }
     dialog { color: var(--text); }
     #helpDialog {
       width: min(650px, calc(100% - 28px));
@@ -847,6 +849,7 @@
     .dialog-note { padding: 10px 12px; border-radius: 9px; background: var(--surface-muted); }
     .app-confirm-dialog {
       width: min(450px, calc(100% - 28px));
+      max-height: calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
       padding: 0;
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -854,12 +857,13 @@
       box-shadow: var(--shadow-md);
       overflow: hidden;
     }
-    .app-confirm-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+    .app-confirm-dialog[open] { display: flex; flex-direction: column; }
+    .app-confirm-header { flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
     .app-confirm-title { margin: 0; font-size: 16px; }
     .app-confirm-close { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer; }
     .app-confirm-close:hover { background: var(--surface-hover); }
     .app-confirm-close svg { width: 17px; height: 17px; }
-    .app-confirm-body { padding: 16px; }
+    .app-confirm-body { min-height: 0; flex: 1 1 auto; overflow: auto; overscroll-behavior: contain; padding: 16px; }
     .app-confirm-message { margin: 0; color: #4f534d; line-height: 1.7; white-space: pre-line; }
     .app-confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 18px; }
     .app-confirm-button { min-height: 42px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-weight: 750; cursor: pointer; }
@@ -904,7 +908,7 @@
       .start-primary .button { flex:1 1 150px; }
       #helpDialog, #exportDialog, #settingsDialog { width: calc(100% - 20px); max-height: calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); }
       #helpDialog .dialog-body, #exportDialog .dialog-body, #settingsDialog .dialog-body { padding: 18px 18px calc(24px + env(safe-area-inset-bottom)); }
-      .app-confirm-dialog { width: 100%; max-width: none; margin: auto 0 0; border-width: 1px 0 0; border-radius: 22px 22px 0 0; }
+      .app-confirm-dialog { width: 100%; max-width: none; max-height: calc(100dvh - 12px - env(safe-area-inset-top)); margin: auto 0 0; border-width: 1px 0 0; border-radius: 22px 22px 0 0; }
       .app-confirm-header { padding: 14px 18px 12px; }
       .app-confirm-body { padding: 12px 18px calc(env(safe-area-inset-bottom) + 18px); }
       .app-confirm-actions { grid-template-columns: 1fr; gap: 10px; }
@@ -926,6 +930,7 @@
     .mobile-tabbar, .mobile-add-fab, .mobile-preview-panel { display: none; }
     .mobile-block-sheet {
       width: min(560px, 100%);
+      max-height: calc(100dvh - 12px - env(safe-area-inset-top));
       max-width: none;
       margin: auto auto 0;
       padding: 0;
@@ -936,9 +941,10 @@
       overflow: hidden;
     }
     .mobile-block-sheet::backdrop { background: rgba(22, 31, 27, .38); backdrop-filter: blur(2px); }
-    .mobile-block-sheet-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px 10px; border-bottom:1px solid var(--line); }
+    .mobile-block-sheet[open] { display: flex; flex-direction: column; }
+    .mobile-block-sheet-head { flex: 0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px 10px; border-bottom:1px solid var(--line); }
     .mobile-block-sheet-head h2 { margin:0; font-size:16px; }
-    .mobile-block-sheet-body { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; padding:12px 14px calc(16px + env(safe-area-inset-bottom)); max-height:68dvh; overflow:auto; }
+    .mobile-block-sheet-body { min-height:0; flex:1 1 auto; overscroll-behavior:contain; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; padding:12px 14px calc(16px + env(safe-area-inset-bottom)); max-height:68dvh; overflow:auto; }
     .mobile-block-choice { min-height:50px; display:flex; align-items:center; gap:9px; padding:10px 12px; border:1px solid var(--line); border-radius:11px; background:var(--surface); text-align:left; font-weight:720; cursor:pointer; }
     .mobile-block-choice:hover { background:var(--surface-hover); }
     .mobile-block-choice svg { width:18px; height:18px; flex:0 0 auto; color:var(--accent); }
@@ -1079,7 +1085,7 @@
       <div class="brand">
         <div class="brand-mark" aria-hidden="true"><img id="appBrandIcon" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTA5NSAxMDk1IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB4PSI2NSIgeT0iNjUiIHdpZHRoPSI5NjQiIGhlaWdodD0iOTY0IiByeD0iMjQxIiBmaWxsPSIjMTY2MjRmIi8+CjxwYXRoIGQ9Im05MTMgNjc2YzQgNCA5IDggMTIgMTMgNiAxMCA4IDIwIDExIDMxIDIgOSA1IDE5IDcgMjggNSAyMSAxMiA0MyAxMSA2NS0xIDQyLTIxIDgzLTU4IDEwNS0xNCA4LTMxIDEzLTQ2IDE2LTQxIDgtNzkgMTItMTE1LTEzLTExLTgtMjEtMTgtMjktMjktMy0zLTktMTMtMTMtMTMtMy0wLjQtNy0wLjA0LTEwLTAuMDUtOC0wLjAyLTE3IDAtMjUgMC0yNC0wLjAyLTQ4IDAuMDYtNzIgMC04MS0wLjItMTYxIDAuMi0yNDItMC4wMy0yNC0wLjA3LTQ5IDAuMDEtNzMgMC4wMi0yNSAwLjAyLTQ0IDItNjUtMTUtMjQtMjAtMjMtNDQtMjMtNzIgMC4wMS0yMyAwLjAxLTQ3IDAtNzAtMC4wNi0xMTIgMC4wOS0yMjQgMC4wMi0zMzYtMC4wMi0yOCAwLjA5LTU1IDAuMDEtODMtMC4wNS0yMC0yLTM5IDkuMS01NyAxMC0xNiAyNy0yOCA0NS0zMCAxMi0yIDI1LTAuOSAzNy0wLjg3IDI0LTAuMDEgNDggMC4wNyA3MiAwLjAxIDEzNS0wLjMgMjcxLTAuMDQgNDA2LTAuMDMgMjIgMC4wMSA0NCAwLjMgNjYgMC4wNiAzMS0wLjMgNjAtMiA4MSAyNiAxNCAxOSAxMyAzNyAxMyA1OSAwLjAyIDIyIDAgNDUtMC4wMSA2Ny0wLjAyIDY4IDAuMDMgMTM3IDAuMDEgMjA1LTAuMDEgMjMgMC4wMiA0NSAwLjAyIDY4IDAgMTItMSAyNCAwLjIxIDM2em0tNjcwLTQyMWMtMjYgNS0yMSA0NCA0LjIgNDIgMzAtMiAyNS00Ny00LjItNDJ6bTY1IDAuMDNjLTI3IDUtMjAgNDcgNi43IDQyIDI4LTUgMjEtNDctNi43LTQyem02Ni0wLjEyYy0yNyA0LTIyIDQ2IDUuOSA0MiAyOC00IDIyLTQ2LTUuOS00MnptNTE4IDQxMGMxLTkgMC4yLTE5IDAuMjQtMjgtMC4wMS0xOC0wLjAxLTM3IDAtNTUgMC4wNC01NyAwLjItMTEzIDAuMDItMTcwLTAuMDUtMjAgMC4wMy00MC0wLjA0LTYwLTAuMDMtNyAyLTE3LTMuNi0yMy00LTQtOS00LTE0LTMuNi04IDAtMTUgMC4wMi0yMyAwLjAxLTMzLTAuMDUtNjYtMC4xLTk5LTAuMDItMTMyIDAuMy0yNjQgMC4wOS0zOTYgMC4wMS0zNy0wLjAzLTc0LTAuMS0xMTEtMC4wMS04IDAuMDItMTYtMC4wMy0yNCAwLjAzLTUgMC4wMy0xMS0wLjA1LTE1IDQuNC00IDUtMyAxMi0yLjkgMTctMC4wNCAxMyAwLjA1IDI3IDAgNDAtMC4yIDUzLTAuMDMgMTA2IDAgMTU5IDAuMDIgNjctMC4wMyAxMzUgMCAyMDIgMCAxNi0wLjAzIDMyLTAuMDEgNDggMC4wMiAxMy0wLjYgMjQgNi43IDM1IDEyIDE4IDMwIDE4IDUwIDE4IDE4LTAuMDQgMzYgMC4wMiA1NC0wLjAxIDg1LTAuMiAxNzEgMC4zIDI1Ni0wLjAxIDIzLTAuMDggNDYtMC4wNSA2OSAwLjAxIDYgMC4wMSAyMyAxIDI4LTEuMS00LTQtOC05LTEyLTE0LTEtMi0zLTUtNS4zLTUuNy0yLTEtNi0wLjQtOC43LTAuNDEtNy0wLjAyLTEzLTAuMDItMjAtMC4wMS0yMyAwLjAzLTQ3IDAuMDUtNzAtMC4wMi03MC0wLjItMTQwIDAuMS0yMTAgMC4wMS0yMC0wLjAyLTQwLTAuMDYtNjAgMC0xMSAwLjA0LTI0IDItMzQtMi40LTIxLTgtMjItMjYtMjItNDUtMC4xLTIyLTAuMS00NS0wLjAxLTY3IDAuMy04MS0wLjItMTYyLTAuMDQtMjQzIDAuMDMtMjUgMC4wNi01MCAwLjAzLTc1LTAuMDItMTItMi0yOSAwLjU2LTQwaDY0NHYzMDloMjF6bS0yNzMtMjA5Yy00LTE0LTktMjYtMTktMzctMjMtMjUtNjMtMzEtOTEtMTMtMTIgOC0yMiAxOS0yOCAzMi0zIDYtNCAxMi02LjYgMThoLTc0Yy0yLTktNS0xNy05LjItMjQtNC03LTktMTItMTUtMTctMzctMzQtOTYtMTYtMTE0IDI4LTQgOS02IDE5LTUuMiAyOSAxIDQ5IDUyIDg0IDk4IDY1IDE4LTcgMzMtMjEgNDEtMzkgMy02IDQtMTIgNS40LTE5aDczYzcgNTAgNjIgODAgMTA3IDU1IDE2LTggMjgtMjIgMzQtMzkgMi01IDMtMTEgNC43LTE3aDcxYzUgNDEgNDYgNjggODYgNjIgMjMtNCA0My0yMSA1My00MSA0LTkgNy0xOSA2LjgtMjkgMC43LTM1LTI0LTY4LTU5LTc0LTE2LTMtMzItMC41LTQ2IDYuMy0xNiA3LTI4IDIxLTM1IDM2LTMgNS0zIDExLTUuNiAxN2gtNzJ6bS03NSAzNGgyOHYxNWgtNTFjLTAuMy00LTItMTEgMC4wOC0xNSAxLTMgNi01IDgtNi45IDYtNSAyMi0xNiAyNS0yMyAzLTgtNC0xNC0xMi0xMS00IDItNCA2LTUgOS4yaC0xNmMtMC42LTI1IDMyLTM1IDQ3LTE2IDIgMiAzIDUgMy41IDcuNiA0IDE0LTcgMjMtMTcgMzEtMyAyLTcgNS05LjYgOC4yem0yMzUtMjFjMyAyIDYgNCA3LjggNi41IDcgMTAgMSAyMy04LjEgMjgtMTcgOS00MiAxLTQyLTIwaDE2YzAuNyAyIDEgNSAyLjkgNi42IDQgNSAxMyA0IDE1LTEuOCAxLTIgMS00IDAuNDEtNi0yLTctOS01LTE1LTZ2LTEyYzYtMC44IDE5LTIgMTQtMTItMi01LTEwLTYtMTQtMS43LTIgMi0yIDQtMi44IDUuN2gtMTZjMC40LTIxIDI2LTI5IDQyLTE4IDEyIDggMTIgMjMtMC43IDMxem0tNDQxLTMzdjcwaC0xN3YtNTBjLTUgMi05IDUtMTQgNS45di0xNGMzLTIgNy00IDEwLTYuNiAyLTIgNC01IDYuMi01LjcgNC0xIDExLTAuMyAxNSAwLjE5em0zNjcgMTE0Yy01IDEtOCA2LTguOCAxMC0wLjYgNCAxIDkgMS44IDEzIDIgMTEgMyAzNCAxOSAzMCA1LTEgOC01IDkuMi0xMCAwLjctNC0xLTktMS45LTEzLTItMTEtMy0zNC0yMC0zMHptODAgMTRjLTkgMC43LTIwIDE4LTI2IDI1LTMgMy02IDYtNi41IDEwLTEgNSAxIDEwIDUuNCAxMiAxMCA2IDE1LTEgMjAtNy45IDQtNCA4LTkgMTEtMTQgMy0zIDctNyA3LjctMTEgMi04LTQtMTYtMTItMTV6bS00OTkgMjRjLTEyIDAuNS0yMyA5LTI1IDIxLTMgMTUgOSAyOSAyNCAyOSAxMyAwLjQgMjUtMTAgMjYtMjMgMS0xNC0xMS0yOC0yNS0yN3ptMzU3IDMuOWMtOCAxLTEzIDEwLTkuNCAxOCAyIDQgNyA3IDExIDkuNCA1IDQgMTcgMTUgMjMgMTYgNCAxIDggMC4xIDExLTIuNSA1LTQgNi0xMiAyLTE3cy0xNy0xMy0yMy0xOGMtNC0zLTgtNy0xNC02LjR6bS0yOTUgM2MtMTggMy0xNyAzMCAwLjc5IDMzIDcgMSAxNCAwLjIgMjEgMC4xOCAxMy0wLjAzIDI1IDAuMDUgMzggMC4wMSAzOS0wLjEgNzktMC4xIDExOCAwIDQgMC4wMSA3IDAuMDIgMTEgMC4wMSAxNC0wLjAyIDQwIDUgNDEtMTYgMS0yMi0yNi0xNy00MC0xNy00IDAtNyAwLjAxLTExIDAuMDItNDAgMC4wNS04MCAwLjA1LTEyMC0wLjAxLTEzLTAuMDItMjYgMC0zOS0wLjAxLTYgMC0xNC0wLjktMjAgMC4zem00MjYgNzhjLTQtNy00LTE4LTYuOC0yNi0yLTgtNy0xNS0xMy0yMC0yNC0yMi02Ni02LTcwIDI2LTIgMTMgMiAyNSA1LjYgMzcgMyAxMyA2IDI1IDkuNCAzOCAxIDYgNCAxMiA0LjcgMTgtMy0wLjEtNi0xLTktMS45LTYtMS0xMi0wLjctMTcgMC42OS0yNSA2LTM5IDMzLTI4IDU3IDMgNyA4IDEyIDEzIDE3IDggOSAxNyAxOSAyNSAyOCA4IDEwIDE2IDE5IDI1IDI4IDIyIDI1IDM3IDQzIDcxIDQ5IDEwIDIgMjEgMiAzMSAxLjMgMTQtMSAzNC02IDQ4LTkuNiA0OC0xNCA3NS01NCA3Ni0xMDMgMC41LTE5LTUtMzctOS01NS0yLTgtNC0xNy02LTI1LTUtMjItOS01MC0zOC01My04LTAuNy0xNCAwLjktMjEgMi41LTktOC0yMC0xMy0zMi0xMC00IDAuNy04IDMtMTIgMy44LTEzLTEzLTMxLTEzLTQ2LTQuNHptLTM0IDEzMGM0LTQgMi03IDEtMTItMi04LTQtMTUtNS44LTIzLTctMzAtMTUtNTktMjItODktMy0xMS04LTI1IDMuMy0zNCA5LTYgMjItNCAyNiA1LjkgNCA4IDUgMjAgNy41IDMwIDQgMTcgOCAzNCAxMiA1MCAyIDcgMyAyNSAxMiAyNSAxMSAwLjYgOC0xMSA2LjQtMTgtMy0xNC0xNC0zOCA0LjctNDUgNy0zIDE1LTEgMTkgNS42IDQgOCA3IDI2IDkuMiAzNiAxIDYgMiAxNiA5LjYgMTUgOC0wLjcgNS05IDQuMS0xNC0yLTExLTEwLTI4IDEuMi0zNiA3LTUgMTYtMyAyMCA0LjQgMyA2IDYgMjMgNy45IDMwIDEgNCAxIDEyIDYuOCAxMiAzIDAuNCA3LTIgNy4xLTUuNCAwLjgtOC02LTE3LTQuMy0yNSAyLTEyIDE5LTE1IDI1LTQuOSAzIDQgMyAxMCA0LjUgMTUgMiA5IDQgMTkgNi45IDI4IDUgMTggMTEgMzggMTEgNTctMC4zIDM2LTIyIDcwLTU3IDgxLTggMy0xNyA0LTI2IDYuMy04IDItMTcgNC0yNSA0LjQtMjAgMC44LTQxLTctNTYtMjAtOS04LTE2LTE3LTIzLTI2LTYtOC0xMy0xNS0xOS0yM2wtMjQtMjdjLTQtNC05LTktMTItMTQtNC04LTItMTcgMy45LTIzIDE4LTE2IDM3IDExIDQ4IDIyIDUgNCA5IDExIDE2IDkuNHptLTQ1NC0xNDJjLTMyIDAuMS0zMyA0OS0xIDUwIDI3IDAuNiAzNy0zNyAxMi00OC0zLTItNy0yLTExLTIuMnptNjUgNi45Yy0xOSAxLTIyIDI4LTQgMzMgNiAyIDE0IDAuNyAyMCAwLjY1IDEyLTAuMDEgMjUtMC4wMyAzNy0wLjAyIDQxIDAuMDIgODEtMC4yIDEyMiAwIDQgMC4wMiA3IDAuMDQgMTEgMC4wMyAxNC0wLjAyIDM5IDUgNDEtMTUgMi0yMi0yNi0xOC00MC0xOC00IDAtNyAwLjAxLTExIDAuMDEtMzktMC4wMi03OCAwLTExNy0wLjAxLTEzIDAtMjctMC4wNS00MCAwLjAxLTYgMC4wMy0xMy0wLjQtMTkgMC4wNnptLTY5IDY2Yy0yNSA0LTI5IDQwLTQuMSA0OSA0IDEgOCAxIDEyIDAuOTQgMjctNCAyOS00MyAyLjItNDktMy0wLjgtNy0wLjktMTAtMC4yOXptNjUgN2MtMTcgNC0xNSAyOSAxLjEgMzIgNiAxIDEzIDAuNCAyMCAwLjM5IDEzIDAuMDEgMjUgMCAzOCAwIDQwIDAuMDIgODAgMCAxMjAtMC4wMyA0IDAgNyAwLjAyIDExIDAuMDMgMTQgMC4wNCA0MCA1IDQxLTE2IDItMjItMjctMTgtNDAtMTgtNCAwLTctMC4wMy0xMS0wLjAzLTQwIDAtODAgMC4yLTEyMCAwLTEzLTAuMDctMjctMC4wMi00MCAwLjA0LTYgMC4wMi0xNC0xLTIwIDAuNTl6IiBmaWxsPSIjZmJmYmZiIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0iI2ZiZmJmYiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIuMjUiLz4KPC9zdmc+Cg==" alt=""></div>
         <div class="brand-copy">
-          <p class="brand-name"><span id="brandName">Interactive Guide Maker</span><span class="version-badge" id="versionBadge">v1.0.1</span></p>
+          <p class="brand-name"><span id="brandName">Interactive Guide Maker</span><span class="version-badge" id="versionBadge">v1.0.2</span></p>
           <p class="brand-meta" data-i18n="brandMeta">Guide editor · Fully local processing</p>
         </div>
       </div>
@@ -1330,6 +1336,7 @@
         <li data-i18n="helpNoteStorage">ブラウザーのサイトデータを削除すると、自動保存した下書きも消える場合があります。</li>
         <li data-i18n="helpNoteExport">「HTMLを書き出す」から、閲覧機能を含む単一HTMLを保存できます。チェック状態は閲覧中のみ保持されます。</li>
         <li data-i18n="helpNoteDetails">書き出したHTMLでは、検索結果を選ぶと該当する折りたたみが開きます。詳細が2つ以上あるときは、すべて開く / 閉じる操作も使えます。開閉状態は保存されません。</li>
+        <li data-i18n="helpNoteDialogs">ダイアログを開いている間は背景のスクロールを止めます。高さが足りないときはダイアログ内をスクロールして、確認ボタンやブロックの最後の項目まで表示できます。</li>
         <li data-i18n="helpNoteShortcuts">ダイアログを開いている間、元に戻す / やり直すは手順書に適用されません。Ctrl/Cmd+Sもダイアログを開き直しません。</li>
         <li data-i18n="helpNoteDrag">ドラッグ操作が使いにくい場合は、各ブロックの上へ / 下へボタンでも同じ並べ替えができます。</li>
       </ul>
@@ -1342,8 +1349,8 @@
     (() => {
       'use strict';
 
-      const APP_CONFIG = {"$schema":"./schemas/app-config.schema.json","name":"Interactive Guide Maker","nameJa":"インタラクティブ手順書","slug":"interactive-guide-maker","version":"1.0.1","description":"Create and refine interactive guides with icon-organized block insertion, position-aware image drops, standalone HTML export, and round-trip editing.","descriptionJa":"アイコン付きで整理したブロック追加や画像の位置指定ドロップで手順書を編集し、単一HTMLとして書き出し・再編集できる完全ローカルツールです。","defaultLanguage":"auto","repository":{"owner":"ttomohisa","name":"htmlapps-interactive-guide-maker"},"build":{"output":"dist/index.html","blockRuntimeNetwork":true,"selfExtract":{"enabled":true,"output":"dist/index.self-extract.html"},"sizeBudget":{"readableWarningMb":25,"selfExtractWarningMb":12}}};
-      const BUILD_MANIFEST = {"schemaVersion":2,"builder":"single-html-app-template/1.3","generatedAtUtc":"2026-10-07T02:40:58.4622365Z","app":{"name":"Interactive Guide Maker","slug":"interactive-guide-maker","version":"1.0.1"},"dependencies":[]};
+      const APP_CONFIG = {"$schema":"./schemas/app-config.schema.json","name":"Interactive Guide Maker","nameJa":"インタラクティブ手順書","slug":"interactive-guide-maker","version":"1.0.2","description":"Create and refine interactive guides with icon-organized block insertion, position-aware image drops, standalone HTML export, and round-trip editing.","descriptionJa":"アイコン付きで整理したブロック追加や画像の位置指定ドロップで手順書を編集し、単一HTMLとして書き出し・再編集できる完全ローカルツールです。","defaultLanguage":"auto","repository":{"owner":"ttomohisa","name":"htmlapps-interactive-guide-maker"},"build":{"output":"dist/index.html","blockRuntimeNetwork":true,"selfExtract":{"enabled":true,"output":"dist/index.self-extract.html"},"sizeBudget":{"readableWarningMb":25,"selfExtractWarningMb":12}}};
+      const BUILD_MANIFEST = {"schemaVersion":2,"builder":"single-html-app-template/1.3","generatedAtUtc":"2026-10-11T09:09:50.0000000Z","app":{"name":"Interactive Guide Maker","slug":"interactive-guide-maker","version":"1.0.2"},"dependencies":[]};
       const assetBundle = {"schemaVersion":2,"dependencies":{}};
       const blobUrls = new Set();
       const assetByteCache = new Map();
@@ -1459,6 +1466,7 @@
           helpPrivacyTitle: 'プライバシー', helpPrivacyBody: 'タイトル・本文・読み込んだ画像はブラウザー内で処理され、このアプリから外部サーバーへ送信されません。実行時の外部通信も行いません。',
           helpNotesTitle: '注意事項', helpNoteStorage: 'ブラウザーのサイトデータを削除すると、自動保存した下書きも消える場合があります。',
           helpNoteDetails: '書き出したHTMLと別タブのプレビューでは、検索結果を選ぶと該当する折りたたみが開きます。詳細が2つ以上あるときは「すべての詳細を開く / 閉じる」も使えます。開閉状態は保存されません。',
+          helpNoteDialogs: 'ダイアログを開いている間は背景のスクロールを止めます。高さが足りないときはダイアログ内をスクロールして、確認ボタンやブロックの最後の項目まで表示できます。',
           helpNoteShortcuts: 'ダイアログを開いている間、元に戻す / やり直すは手順書に適用されません。ファイル名はブラウザー標準の操作で編集できます。Ctrl/Cmd+Sもダイアログを開き直しません。',
           helpNoteExport: 'プレビューは別タブで開きます。表示されない場合はポップアップ設定を確認してください。書き出したHTMLには再編集用データも含まれます。「HTMLを開く」から続きの編集を再開できます。チェック状態は閲覧中のみ保持されます。',
           helpNoteDrag: 'ドラッグ操作が使いにくい場合は、各ブロックの上へ / 下へボタンでも同じ並べ替えができます。',
@@ -1501,6 +1509,7 @@
           helpPrivacyTitle: 'Privacy', helpPrivacyBody: 'Guide titles, text, and imported images are processed in the browser and are not sent to an external server by this app. It also makes no runtime network connection.',
           helpNotesTitle: 'Notes', helpNoteStorage: 'Clearing browser site data may also remove the locally saved draft.',
           helpNoteDetails: 'In exported HTML and its separate-tab Preview, search opens matching Details. Guides with two or more Details also offer Expand all details / Collapse all details. Open/closed states are not saved.',
+          helpNoteDialogs: 'The background does not scroll while a dialog is open. In short windows, scroll inside the dialog to reach confirmation buttons or the last block choice.',
           helpNoteShortcuts: 'While a dialog is open, Undo/Redo does not change the guide. Filename editing keeps the browser’s native shortcuts. Ctrl/Cmd+S does not reopen the dialog.',
           helpNoteExport: 'Preview opens in a separate tab; check pop-up settings if no tab appears. Exported HTML includes editable source data so you can reopen it with Open HTML later. Checklist state is kept only while that viewer remains open.',
           helpNoteDrag: 'If drag-and-drop is inconvenient, the Move up / Move down buttons provide the same reorder operation.',

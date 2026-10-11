@@ -762,6 +762,8 @@
       font-weight: 750;
       cursor: pointer;
     }
+    /* Native modal state owns the page lock, including Escape and backdrop dismissal. */
+    html:has(dialog:modal), body:has(dialog:modal) { overflow: hidden; overscroll-behavior: none; }
     dialog { color: var(--text); }
     #helpDialog {
       width: min(650px, calc(100% - 28px));
@@ -847,6 +849,7 @@
     .dialog-note { padding: 10px 12px; border-radius: 9px; background: var(--surface-muted); }
     .app-confirm-dialog {
       width: min(450px, calc(100% - 28px));
+      max-height: calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
       padding: 0;
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -854,12 +857,13 @@
       box-shadow: var(--shadow-md);
       overflow: hidden;
     }
-    .app-confirm-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+    .app-confirm-dialog[open] { display: flex; flex-direction: column; }
+    .app-confirm-header { flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
     .app-confirm-title { margin: 0; font-size: 16px; }
     .app-confirm-close { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer; }
     .app-confirm-close:hover { background: var(--surface-hover); }
     .app-confirm-close svg { width: 17px; height: 17px; }
-    .app-confirm-body { padding: 16px; }
+    .app-confirm-body { min-height: 0; flex: 1 1 auto; overflow: auto; overscroll-behavior: contain; padding: 16px; }
     .app-confirm-message { margin: 0; color: #4f534d; line-height: 1.7; white-space: pre-line; }
     .app-confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 18px; }
     .app-confirm-button { min-height: 42px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-weight: 750; cursor: pointer; }
@@ -904,7 +908,7 @@
       .start-primary .button { flex:1 1 150px; }
       #helpDialog, #exportDialog, #settingsDialog { width: calc(100% - 20px); max-height: calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); }
       #helpDialog .dialog-body, #exportDialog .dialog-body, #settingsDialog .dialog-body { padding: 18px 18px calc(24px + env(safe-area-inset-bottom)); }
-      .app-confirm-dialog { width: 100%; max-width: none; margin: auto 0 0; border-width: 1px 0 0; border-radius: 22px 22px 0 0; }
+      .app-confirm-dialog { width: 100%; max-width: none; max-height: calc(100dvh - 12px - env(safe-area-inset-top)); margin: auto 0 0; border-width: 1px 0 0; border-radius: 22px 22px 0 0; }
       .app-confirm-header { padding: 14px 18px 12px; }
       .app-confirm-body { padding: 12px 18px calc(env(safe-area-inset-bottom) + 18px); }
       .app-confirm-actions { grid-template-columns: 1fr; gap: 10px; }
@@ -926,6 +930,7 @@
     .mobile-tabbar, .mobile-add-fab, .mobile-preview-panel { display: none; }
     .mobile-block-sheet {
       width: min(560px, 100%);
+      max-height: calc(100dvh - 12px - env(safe-area-inset-top));
       max-width: none;
       margin: auto auto 0;
       padding: 0;
@@ -936,9 +941,10 @@
       overflow: hidden;
     }
     .mobile-block-sheet::backdrop { background: rgba(22, 31, 27, .38); backdrop-filter: blur(2px); }
-    .mobile-block-sheet-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px 10px; border-bottom:1px solid var(--line); }
+    .mobile-block-sheet[open] { display: flex; flex-direction: column; }
+    .mobile-block-sheet-head { flex: 0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px 10px; border-bottom:1px solid var(--line); }
     .mobile-block-sheet-head h2 { margin:0; font-size:16px; }
-    .mobile-block-sheet-body { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; padding:12px 14px calc(16px + env(safe-area-inset-bottom)); max-height:68dvh; overflow:auto; }
+    .mobile-block-sheet-body { min-height:0; flex:1 1 auto; overscroll-behavior:contain; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; padding:12px 14px calc(16px + env(safe-area-inset-bottom)); max-height:68dvh; overflow:auto; }
     .mobile-block-choice { min-height:50px; display:flex; align-items:center; gap:9px; padding:10px 12px; border:1px solid var(--line); border-radius:11px; background:var(--surface); text-align:left; font-weight:720; cursor:pointer; }
     .mobile-block-choice:hover { background:var(--surface-hover); }
     .mobile-block-choice svg { width:18px; height:18px; flex:0 0 auto; color:var(--accent); }
@@ -1079,7 +1085,7 @@
       <div class="brand">
         <div class="brand-mark" aria-hidden="true"><img id="appBrandIcon" src="__APP_ICON_DATA_URI__" alt=""></div>
         <div class="brand-copy">
-          <p class="brand-name"><span id="brandName">Interactive Guide Maker</span><span class="version-badge" id="versionBadge">v1.0.1</span></p>
+          <p class="brand-name"><span id="brandName">Interactive Guide Maker</span><span class="version-badge" id="versionBadge">v1.0.2</span></p>
           <p class="brand-meta" data-i18n="brandMeta">Guide editor · Fully local processing</p>
         </div>
       </div>
@@ -1330,6 +1336,7 @@
         <li data-i18n="helpNoteStorage">ブラウザーのサイトデータを削除すると、自動保存した下書きも消える場合があります。</li>
         <li data-i18n="helpNoteExport">「HTMLを書き出す」から、閲覧機能を含む単一HTMLを保存できます。チェック状態は閲覧中のみ保持されます。</li>
         <li data-i18n="helpNoteDetails">書き出したHTMLでは、検索結果を選ぶと該当する折りたたみが開きます。詳細が2つ以上あるときは、すべて開く / 閉じる操作も使えます。開閉状態は保存されません。</li>
+        <li data-i18n="helpNoteDialogs">ダイアログを開いている間は背景のスクロールを止めます。高さが足りないときはダイアログ内をスクロールして、確認ボタンやブロックの最後の項目まで表示できます。</li>
         <li data-i18n="helpNoteShortcuts">ダイアログを開いている間、元に戻す / やり直すは手順書に適用されません。Ctrl/Cmd+Sもダイアログを開き直しません。</li>
         <li data-i18n="helpNoteDrag">ドラッグ操作が使いにくい場合は、各ブロックの上へ / 下へボタンでも同じ並べ替えができます。</li>
       </ul>
@@ -1459,6 +1466,7 @@
           helpPrivacyTitle: 'プライバシー', helpPrivacyBody: 'タイトル・本文・読み込んだ画像はブラウザー内で処理され、このアプリから外部サーバーへ送信されません。実行時の外部通信も行いません。',
           helpNotesTitle: '注意事項', helpNoteStorage: 'ブラウザーのサイトデータを削除すると、自動保存した下書きも消える場合があります。',
           helpNoteDetails: '書き出したHTMLと別タブのプレビューでは、検索結果を選ぶと該当する折りたたみが開きます。詳細が2つ以上あるときは「すべての詳細を開く / 閉じる」も使えます。開閉状態は保存されません。',
+          helpNoteDialogs: 'ダイアログを開いている間は背景のスクロールを止めます。高さが足りないときはダイアログ内をスクロールして、確認ボタンやブロックの最後の項目まで表示できます。',
           helpNoteShortcuts: 'ダイアログを開いている間、元に戻す / やり直すは手順書に適用されません。ファイル名はブラウザー標準の操作で編集できます。Ctrl/Cmd+Sもダイアログを開き直しません。',
           helpNoteExport: 'プレビューは別タブで開きます。表示されない場合はポップアップ設定を確認してください。書き出したHTMLには再編集用データも含まれます。「HTMLを開く」から続きの編集を再開できます。チェック状態は閲覧中のみ保持されます。',
           helpNoteDrag: 'ドラッグ操作が使いにくい場合は、各ブロックの上へ / 下へボタンでも同じ並べ替えができます。',
@@ -1501,6 +1509,7 @@
           helpPrivacyTitle: 'Privacy', helpPrivacyBody: 'Guide titles, text, and imported images are processed in the browser and are not sent to an external server by this app. It also makes no runtime network connection.',
           helpNotesTitle: 'Notes', helpNoteStorage: 'Clearing browser site data may also remove the locally saved draft.',
           helpNoteDetails: 'In exported HTML and its separate-tab Preview, search opens matching Details. Guides with two or more Details also offer Expand all details / Collapse all details. Open/closed states are not saved.',
+          helpNoteDialogs: 'The background does not scroll while a dialog is open. In short windows, scroll inside the dialog to reach confirmation buttons or the last block choice.',
           helpNoteShortcuts: 'While a dialog is open, Undo/Redo does not change the guide. Filename editing keeps the browser’s native shortcuts. Ctrl/Cmd+S does not reopen the dialog.',
           helpNoteExport: 'Preview opens in a separate tab; check pop-up settings if no tab appears. Exported HTML includes editable source data so you can reopen it with Open HTML later. Checklist state is kept only while that viewer remains open.',
           helpNoteDrag: 'If drag-and-drop is inconvenient, the Move up / Move down buttons provide the same reorder operation.',

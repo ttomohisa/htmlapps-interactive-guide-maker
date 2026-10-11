@@ -36,6 +36,7 @@ function createApp(filename, options = {}) {
       Object.defineProperty(this, 'className', { get: () => [...classes].join(' '), set: value => { classes.clear(); String(value).split(/\s+/).filter(Boolean).forEach(x => classes.add(x)); } });
       this.style = { setProperty(key, value) { this[key] = value; } };
     }
+    get childElementCount() { return this.children.length; }
     get textContent() { return this._text + this.children.map(el => el.textContent).join(''); }
     set textContent(value) { this._text = String(value); this.children.forEach(el => { el.isConnected = false; if (el === document.activeElement || el.contains(document.activeElement)) document.activeElement = document.body; }); this.children = []; }
     set innerHTML(value) { this.textContent = ''; this._html = value; parseHtml(String(value), this); }
