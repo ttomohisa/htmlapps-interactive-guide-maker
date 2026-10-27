@@ -57,6 +57,8 @@ async function main() {
             if (await page.locator('html').getAttribute('lang') !== language) await page.locator('#languageButton').click();
             await page.waitForFunction(lang => document.documentElement.lang === lang, language);
             await auditHeader(page, label);
+            const columns = await page.locator('.template-grid').evaluate(el => getComputedStyle(el).gridTemplateColumns.trim().split(/\s+/).length);
+            assert.equal(columns, width <= 520 ? 1 : 3, label + ': intended starter-card columns');
             assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), label + ': no page overflow');
             if (file === 'dist/index.html') await page.screenshot({ path: path.join(evidence, `${language}-${width}-main.png`) });
             const dialog = page.locator('#helpDialog');
