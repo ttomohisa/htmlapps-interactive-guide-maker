@@ -4,7 +4,7 @@
 
 - **Name:** Interactive Guide Maker
 - **Japanese name:** インタラクティブ手順書
-- **Current version:** v1.0.2
+- **Current version:** v1.0.3
 - **One-sentence purpose:** Build step-by-step guides entirely in the browser, export them as self-contained interactive HTML, and reopen those exported files to continue editing.
 - **Primary users:** People creating operating procedures, setup instructions, inspection guides, handover notes, and troubleshooting guides without writing HTML.
 - **Release artifacts:** `dist/index.html` and `dist/index.self-extract.html`
