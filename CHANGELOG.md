@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3 - 2026-10-27
+
+- Keep the header version badge visible at narrow widths by truncating only the app title.
+- Remove redundant language-switching instructions from Japanese and English Help.
+
+
 All notable changes to Interactive Guide Maker are documented here.
 
 ## [1.0.2] - 2026-10-11
