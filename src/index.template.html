@@ -108,8 +108,8 @@
       border-radius: 999px;
       color: var(--muted);
       background: var(--surface-muted);
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 650;
       vertical-align: 2px;
     }
     .brand-meta {
@@ -141,6 +141,12 @@
       border-radius: 10px;
       background: var(--surface);
       cursor: pointer;
+    }
+    .dialog-close { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 9px; background: transparent; cursor: pointer; }
+    .dialog-close svg { width: 18px; height: 18px; }
+    .file-fallback-button { display: none; }
+    @media (max-width: 767px), (pointer: coarse) and (max-height: 600px) {
+      .file-fallback-button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 10px; border: 0; background: transparent; color: var(--accent); font-size: 13px; font-weight: 650; cursor: pointer; }
     }
     .icon-button:hover { border-color: var(--line-strong); background: var(--surface-hover); }
     .icon-button svg { width: 18px; height: 18px; display: block; }
@@ -180,13 +186,13 @@
       gap: 7px;
       flex: 0 0 auto;
       margin-top: 3px;
-      padding: 7px 10px;
-      border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
-      border-radius: 999px;
+      padding: 7px 0;
+      border: 0;
+      border-radius: 0;
       color: var(--accent);
-      background: var(--accent-soft);
+      background: transparent;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 500;
       white-space: nowrap;
     }
     .local-badge svg { width: 15px; height: 15px; display: block; }
@@ -727,8 +733,8 @@
       margin: 0 auto;
       padding: 0 clamp(14px, 2.8vw, 30px) calc(24px + env(safe-area-inset-bottom));
       color: var(--muted);
-      font-size: 11px;
-      text-align: center;
+      font-size: 12px;
+      text-align: left;
     }
     .app-toast {
       position: fixed;
@@ -1181,6 +1187,7 @@
                     <button class="button add-block-button" id="addHeadingButton" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M5 6h14M12 6v12M5 18h14"/></svg><span class="add-block-button-label" data-i18n="addHeading">見出し</span></button>
                     <button class="button add-block-button" id="addStepButton" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 7h2M6 12h2M6 17h2M11 7h7M11 12h7M11 17h7"/></svg><span class="add-block-button-label" data-i18n="addStep">手順</span></button>
                     <button class="button add-block-button" id="addImageButton" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4zM7 15l3-3 2 2 2-2 3 3M15.5 9h.01"/></svg><span class="add-block-button-label" data-i18n="addImage">画像</span></button>
+                    <button class="file-fallback-button" id="imageFileFallbackButton" type="button" data-i18n="fileFallback">ファイルから選択</button>
                   </div>
                 </section>
                 <section class="add-block-group" aria-labelledby="addBlockGuideLabel">
@@ -1199,6 +1206,7 @@
             </div>
           </div>
           <input id="imageFileInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden>
+          <input id="imageFileFallbackInput" type="file" multiple hidden>
           <input id="guideHtmlFileInput" type="file" accept="text/html,.html,.htm" hidden>
         </div>
       </section>
@@ -1214,7 +1222,7 @@
     <!-- APP:END -->
   </main>
 
-  <footer><span id="footerName">Interactive Guide Maker</span> · MIT License · <span data-i18n="footer">完全ローカル処理</span></footer>
+  <footer><span id="footerName">Interactive Guide Maker</span> · MIT License · <span data-i18n="footer">ガイドの作成はブラウザー内で完結</span></footer>
 
   <button class="mobile-add-fab" id="mobileAddBlockButton" type="button" data-i18n-aria-label="addBlock" aria-label="ブロックを追加">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
@@ -1234,7 +1242,7 @@
   </nav>
 
   <dialog class="mobile-block-sheet" id="mobileBlockSheet" aria-labelledby="mobileBlockSheetTitle">
-    <div class="mobile-block-sheet-head"><h2 id="mobileBlockSheetTitle" data-i18n="addBlock">ブロックを追加</h2><button class="icon-button" id="closeMobileBlockSheet" type="button" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="mobile-block-sheet-head"><h2 id="mobileBlockSheetTitle" data-i18n="addBlock">ブロックを追加</h2><button class="dialog-close" id="closeMobileBlockSheet" type="button" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg></button></div>
     <div class="mobile-block-sheet-body" id="mobileBlockChoices"></div>
   </dialog>
 
@@ -1264,8 +1272,8 @@
   <dialog id="exportDialog" aria-labelledby="exportDialogTitle">
     <div class="dialog-header">
       <h2 id="exportDialogTitle" data-i18n="exportDialogTitle">HTMLを書き出す</h2>
-      <button class="icon-button" id="closeExportButton" type="button" data-i18n-title="close" data-i18n-aria-label="close" title="閉じる" aria-label="閉じる">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
+      <button class="dialog-close" id="closeExportButton" type="button" data-i18n-title="close" data-i18n-aria-label="close" title="閉じる" aria-label="閉じる">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg>
       </button>
     </div>
     <div class="dialog-body">
@@ -1292,7 +1300,7 @@
 
 
   <dialog id="settingsDialog" aria-labelledby="settingsDialogTitle">
-    <div class="dialog-header"><h2 id="settingsDialogTitle" data-i18n="documentSettings">文書設定</h2><button class="icon-button" id="closeSettingsButton" type="button" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button></div>
+    <div class="dialog-header"><h2 id="settingsDialogTitle" data-i18n="documentSettings">文書設定</h2><button class="dialog-close" id="closeSettingsButton" type="button" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg></button></div>
     <div class="dialog-body">
       <div class="setting-group"><span class="setting-label" data-i18n="settingFontSize">文字サイズ</span><div class="setting-options">
         <label class="setting-option"><input type="radio" name="fontSize" value="normal"><span data-i18n="settingNormal">標準</span></label>
@@ -1314,8 +1322,8 @@
   <dialog id="helpDialog" aria-labelledby="helpTitle">
     <div class="dialog-header">
       <h2 id="helpTitle" data-i18n="helpTitle">使い方と注意事項</h2>
-      <button class="icon-button" id="closeHelpButton" type="button" data-i18n-title="close" data-i18n-aria-label="close" title="閉じる" aria-label="閉じる">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
+      <button class="dialog-close" id="closeHelpButton" type="button" data-i18n-title="close" data-i18n-aria-label="close" title="閉じる" aria-label="閉じる">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg>
       </button>
     </div>
     <div class="dialog-body">
@@ -1470,7 +1478,7 @@
 
           helpNoteExport: 'プレビューは別タブで開きます。表示されない場合はポップアップ設定を確認してください。書き出したHTMLには再編集用データも含まれます。「HTMLを開く」から続きの編集を再開できます。チェック状態は閲覧中のみ保持されます。',
           helpNoteDrag: 'ドラッグ操作が使いにくい場合は、各ブロックの上へ / 下へボタンでも同じ並べ替えができます。',
-          helpOffline: 'このアプリ本体は単一HTMLとして生成され、ローカルで直接開いて利用できます。', footer: '完全ローカル処理'
+          helpOffline: 'このアプリ本体は単一HTMLとして生成され、ローカルで直接開いて利用できます。', footer: 'ガイドの作成はブラウザー内で完結', fileFallback: 'ファイルから選択'
         },
         en: {
           brandMeta: 'Guide editor · Fully local processing',
@@ -1512,7 +1520,7 @@
 
           helpNoteExport: 'Preview opens in a separate tab; check pop-up settings if no tab appears. Exported HTML includes editable source data so you can reopen it with Open HTML later. Checklist state is kept only while that viewer remains open.',
           helpNoteDrag: 'If drag-and-drop is inconvenient, the Move up / Move down buttons provide the same reorder operation.',
-          helpOffline: 'The app itself is generated as one self-contained HTML file and can be opened directly from local storage.', footer: 'Fully local processing'
+          helpOffline: 'The app itself is generated as one self-contained HTML file and can be opened directly from local storage.', footer: 'Guide making stays in the browser', fileFallback: 'Choose from files'
         }
       };
 
@@ -3148,6 +3156,8 @@
       $('#addTabsButton').addEventListener('click', () => addBlock('tabs'));
       $('#addCodeButton').addEventListener('click', () => addBlock('code'));
       $('#addDividerButton').addEventListener('click', () => addBlock('divider'));
+      $('#imageFileFallbackButton').addEventListener('click', () => { const f = $('#imageFileFallbackInput'); f.value = ''; f.click(); });
+      $('#imageFileFallbackInput').addEventListener('change', event => { importImageFiles(event.target.files, { replaceBlockId: null, insertIndex: null }); });
       $('#imageFileInput').addEventListener('change', event => {
         const replaceBlockId = event.target.dataset.replaceBlockId || null;
         const rawInsertIndex = event.target.dataset.insertIndex;
